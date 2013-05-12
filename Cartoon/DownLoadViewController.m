@@ -5,13 +5,7 @@
 //  Created by yueshenyuan on 12-12-22.
 //  Copyright (c) 2012年 fanzhi. All rights reserved.
 //
-#import "GlobalData.h"
-#import <QuartzCore/QuartzCore.h>
 #import "DownLoadViewController.h"
-#import "ZipArchive/ZipArchive.h"
-#import "ShowDetailViewController.h"
-#import "asiHTTP/ASIHTTPRequest.h"
-#import "DownComicInfo.h"
 @interface DownLoadViewController ()
 {
     
@@ -19,6 +13,7 @@
 @end
 
 @implementation DownLoadViewController
+@synthesize downBase;
 @synthesize currentDownId = _currentDownId;
 @synthesize exitStatus;
 @synthesize netWorkQueue = _netWorkQueue;
@@ -55,6 +50,8 @@
     UIBarButtonItem *exitBtn = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(exitDownComic:)];
     self.navigationItem.rightBarButtonItem = exitBtn;
     
+    self.downBase = [[[DownLoadBaseController alloc] init] autorelease];
+    
     NSMutableArray *currentDownList = [GlobalData getSaveLocalDownList];
     int row = 0;
     for(int i=0;i<currentDownList.count;i++){
@@ -88,20 +85,8 @@
         [itemView addSubview:showComic];
         //未下载完
         if ([downStatus isEqualToString:@"down"]) {
-//            NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-//            NSString *saveId = [NSString stringWithFormat:@"%d",pid];
-//            NSDictionary *saveDownSize = [userDef objectForKey:saveId];
-            NSMutableArray *downList = nil;
-            NSArray *pathArr = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-            NSString *path = [[pathArr objectAtIndex:0] stringByAppendingPathComponent:@"cur.txt"];
-            if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
-                downList = [[[NSMutableArray alloc] initWithContentsOfFile:path] autorelease];
-            }
-            NSDictionary *saveDownSize = [downList objectAtIndex:0];
-            if (saveDownSize) {
-                itemProgress.progress = [[saveDownSize objectForKey:@"progress"] floatValue];
-            }
-            
+            float progressValue = [self.downBase getProductDownProgress:pid];
+            itemProgress.progress = progressValue;
             
             [itemView addSubview:itemProgress];
             [showComic setTitle:@"下载" forState:UIControlStateNormal];
@@ -255,9 +240,9 @@
         }
     }
     NSArray *pages = downInfo.downList;
-    int comicId = [downInfo.pid intValue];
+    int pid = [downInfo.pid intValue];
     //如果漫画下载文件夹不存在则创建
-    NSString *comicFolderPath = [self.downPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%d", comicId]];
+    NSString *comicFolderPath = [self.downPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%d", pid]];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL fileExists = [fileManager fileExistsAtPath:comicFolderPath];
     if (!fileExists) {
@@ -267,23 +252,8 @@
                                      error:nil];
     }
     //获取以往下载进度
-//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-//    if ([userDef objectForKey:[NSString stringWithFormat:@"%d",comicId]]) {
-//        NSDictionary *saveDownSize = [userDef objectForKey:[NSString stringWithFormat:@"%d",comicId]];
-//        self.alreadyDown = [[saveDownSize objectForKey:@"already"] floatValue];
-//    }else{
-//        [userDef removeObjectForKey:[NSString stringWithFormat:@"%d",comicId]];
-//    }
-    NSMutableArray *downList = nil;
-    NSArray *pathArr = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *path = [[pathArr objectAtIndex:0] stringByAppendingPathComponent:@"cur.txt"];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
-        downList = [[[NSMutableArray alloc] initWithContentsOfFile:path] autorelease];
-        NSDictionary *saveDownSize = [downList objectAtIndex:0];
-        self.alreadyDown = [[saveDownSize objectForKey:@"already"] floatValue];
-    }
-    
-    
+    float alreadyValue = [self.downBase getProductDownAlready:pid];
+    self.alreadyDown = alreadyValue;
     
     ASIHTTPRequest *request;
     for (int i=0; i<pages.count; i++) {
@@ -293,9 +263,9 @@
         [_imgArr addObject:imgFile];
         NSURL *url = [NSURL URLWithString:img];
         request = [[ASIHTTPRequest alloc] initWithURL:url];
-        request.tag = comicId;
+        request.tag = pid;
         request.delegate = self;
-        NSString *savePath = [_downPath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%d/%@",comicId,imgFile]];
+        NSString *savePath = [_downPath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%d/%@",pid,imgFile]];
         NSString *tempPath = [_downPath stringByAppendingPathComponent:[NSString stringWithFormat:@"temp/%@.temp",imgFile]];
         [request setDownloadDestinationPath:savePath];
         [request setTemporaryFileDownloadPath:tempPath];
@@ -317,42 +287,21 @@
     if (!self.userDefs) {
         self.userDefs = [NSUserDefaults standardUserDefaults];
     }
-    NSString *saveId = [NSString stringWithFormat:@"%d",request.tag];
+    int pid = request.tag;
     self.alreadyDown += request.contentLength/1024.0/1024.0;
     //队列文件总大小
-    float totalSize;
-//    NSDictionary *dict = [self.userDefs objectForKey:saveId];
-//    if (dict != nil) {
-//        NSNumber *total = [dict objectForKey:@"totalSize"];
-//        totalSize = [total floatValue];
-//    }else{
-//        totalSize = self.netWorkQueue.totalBytesToDownload/1024.0/1024.0;
-//    }
-    NSMutableArray *downList = nil;
-    NSArray *pathArr = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *path = [[pathArr objectAtIndex:0] stringByAppendingPathComponent:@"cur.txt"];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
-        downList = [[[NSMutableArray alloc] initWithContentsOfFile:path] autorelease];
-        NSDictionary *saveDownSize = [downList objectAtIndex:0];
-        totalSize = [[saveDownSize objectForKey:@"totalSize"] floatValue];
-    }else{
+    float totalSize = [self.downBase getProductDownTotalSize:pid];
+    if (totalSize < 0.0) {
         totalSize = self.netWorkQueue.totalBytesToDownload/1024.0/1024.0;
     }
-    
-    
     
     float progressSize = self.alreadyDown/totalSize;
     
     NSNumber *saveProgressSize = [NSNumber numberWithFloat:progressSize];
     NSNumber *alreadyDownSize = [NSNumber numberWithFloat:self.alreadyDown];
     NSNumber *totalDownSize = [NSNumber numberWithFloat:totalSize];
-    NSDictionary *saveDownSize = [NSDictionary dictionaryWithObjectsAndKeys:saveProgressSize,@"progress",
-                                  alreadyDownSize,@"already",
-                                  totalDownSize,@"totalSize", nil];
-    GlobalData *global = [GlobalData getGlobalData];
-    [global saveDownLoadProgress:saveDownSize productId:saveId];
+    [self.downBase saveDownLoadProgress:pid setProgress:saveProgressSize setAlready:alreadyDownSize setTotalSize:totalDownSize];
 //    NSLog(@"进度:%fM  已下载：%fM  总大小：%fM",[saveProgressSize floatValue],[alreadyDownSize floatValue],[totalDownSize floatValue]);
-//    [self.userDefs setObject:saveDownSize forKey:saveId];
     UIView *curDownView = [self.view viewWithTag:request.tag];
     for (UIView *view in curDownView.subviews) {
         if ([view isKindOfClass:[UIProgressView class]]) {

@@ -101,13 +101,6 @@
     
     [self getModuleData1];
     
-//    NSString* date;
-//    NSDateFormatter* formatter = [[NSDateFormatter alloc]init];
-//    [formatter setDateFormat:@"YYYY-MM-dd hh:mm:ss"];
-//    date = [formatter stringFromDate:[NSDate date]];
-//    
-    
-    NSLog(@"=========%d",(int)[[NSDate date] timeIntervalSince1970]);
 }
 
 #pragma mark 获取第一个栏目数据

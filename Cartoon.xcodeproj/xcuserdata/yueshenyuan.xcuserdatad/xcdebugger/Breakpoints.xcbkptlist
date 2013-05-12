@@ -60,11 +60,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Cartoon/FeaturedViewController.m"
-         timestampString = "389601619.450392"
+         timestampString = "389978048.169096"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "204"
-         endingLineNumber = "204"
+         startingLineNumber = "197"
+         endingLineNumber = "197"
          landmarkName = "-comicChapters:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -95,19 +95,6 @@
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "Cartoon/DownLoadViewController.m"
-         timestampString = "389607751.063551"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "103"
-         endingLineNumber = "103"
-         landmarkName = "-viewDidLoad"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
@@ -125,11 +112,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Cartoon/FeaturedViewController.m"
-         timestampString = "389601619.450392"
+         timestampString = "389978048.169096"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "118"
-         endingLineNumber = "118"
+         startingLineNumber = "111"
+         endingLineNumber = "111"
          landmarkName = "-getModuleData1"
          landmarkType = "5">
       </FileBreakpoint>
@@ -138,11 +125,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Cartoon/FeaturedViewController.m"
-         timestampString = "389601619.450392"
+         timestampString = "389978048.169096"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "293"
-         endingLineNumber = "293"
+         startingLineNumber = "286"
+         endingLineNumber = "286"
          landmarkName = "-tableView:heightForRowAtIndexPath:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -151,11 +138,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Cartoon/DownLoadViewController.m"
-         timestampString = "389609051.921885"
+         timestampString = "389979229.051171"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "377"
-         endingLineNumber = "377"
+         startingLineNumber = "326"
+         endingLineNumber = "326"
          landmarkName = "-showDetailComic:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -164,11 +151,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Cartoon/DownLoadViewController.m"
-         timestampString = "389601705.85619"
+         timestampString = "389975964.76668"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "71"
-         endingLineNumber = "71"
+         startingLineNumber = "68"
+         endingLineNumber = "68"
          landmarkName = "-viewDidLoad"
          landmarkType = "5">
       </FileBreakpoint>
@@ -177,11 +164,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Cartoon/FeaturedViewController.m"
-         timestampString = "389601619.450392"
+         timestampString = "389978048.169096"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "443"
-         endingLineNumber = "443"
+         startingLineNumber = "436"
+         endingLineNumber = "436"
          landmarkName = "-setModulePage0:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -209,6 +196,19 @@
          startingLineNumber = "85"
          endingLineNumber = "85"
          landmarkName = "-requestFinished:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Cartoon/DownLoadBaseController.m"
+         timestampString = "389979229.051171"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "72"
+         endingLineNumber = "72"
+         landmarkName = "-saveDownLoadProgress:setProgress:setAlready:setTotalSize:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

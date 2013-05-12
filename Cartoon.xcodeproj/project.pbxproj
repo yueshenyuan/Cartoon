@@ -49,6 +49,7 @@
 		5867499F1670EC5B0050CA2A /* FeaturedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5867499D1670EC5B0050CA2A /* FeaturedViewController.m */; };
 		586749AE1670FD8E0050CA2A /* PublishersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 586749AC1670FD8E0050CA2A /* PublishersViewController.m */; };
 		586749BD16737EBC0050CA2A /* ListPageViewController1.m in Sources */ = {isa = PBXBuildFile; fileRef = 586749BB16737EBC0050CA2A /* ListPageViewController1.m */; };
+		586FE4D4173E84EB00D3BA3D /* DownLoadBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 586FE4D3173E84EB00D3BA3D /* DownLoadBaseController.m */; };
 		58702193172FC944005A14C6 /* SettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58702192172FC944005A14C6 /* SettingView.m */; };
 		588D1DE71715B01B006FA00B /* listPageCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 588D1DE61715B01B006FA00B /* listPageCell1.xib */; };
 		5892A66217355329006B3D33 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5892A66117355329006B3D33 /* DetailViewController.xib */; };
@@ -143,6 +144,8 @@
 		586749AC1670FD8E0050CA2A /* PublishersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublishersViewController.m; sourceTree = "<group>"; };
 		586749BA16737EBC0050CA2A /* ListPageViewController1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListPageViewController1.h; sourceTree = "<group>"; };
 		586749BB16737EBC0050CA2A /* ListPageViewController1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListPageViewController1.m; sourceTree = "<group>"; };
+		586FE4D2173E84EB00D3BA3D /* DownLoadBaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownLoadBaseController.h; sourceTree = "<group>"; };
+		586FE4D3173E84EB00D3BA3D /* DownLoadBaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownLoadBaseController.m; sourceTree = "<group>"; };
 		58702191172FC944005A14C6 /* SettingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingView.h; sourceTree = "<group>"; };
 		58702192172FC944005A14C6 /* SettingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingView.m; sourceTree = "<group>"; };
 		588D1DE61715B01B006FA00B /* listPageCell1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = listPageCell1.xib; sourceTree = "<group>"; };
@@ -408,6 +411,8 @@
 			children = (
 				581AAC161685FF7D00C58CA8 /* DownLoadViewController.h */,
 				581AAC171685FF7D00C58CA8 /* DownLoadViewController.m */,
+				586FE4D2173E84EB00D3BA3D /* DownLoadBaseController.h */,
+				586FE4D3173E84EB00D3BA3D /* DownLoadBaseController.m */,
 			);
 			name = "下载";
 			sourceTree = "<group>";
@@ -599,6 +604,7 @@
 				5896533C171E778A001EADF5 /* myCell.m in Sources */,
 				58DD0E17171EF6F500AA6A97 /* FreeViewController.m in Sources */,
 				58702193172FC944005A14C6 /* SettingView.m in Sources */,
+				586FE4D4173E84EB00D3BA3D /* DownLoadBaseController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

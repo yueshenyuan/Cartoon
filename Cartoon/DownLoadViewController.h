@@ -7,9 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "asiHTTP/ASINetworkQueue.h"
-#import "ProgressIndicator.h"
-
+#import "DownLoadBaseController.h"
 
 @interface DownLoadViewController : UIViewController<ASIProgressDelegate>
 {
@@ -20,6 +18,7 @@
     NSMutableArray *_downComicList;
     NSDictionary *_dict;
 }
+@property(nonatomic,retain) id downBase;
 @property(nonatomic,assign) int currentDownId;
 @property(nonatomic,assign) Boolean exitStatus;
 @property(nonatomic,retain) NSMutableArray *imgArr;
