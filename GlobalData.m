@@ -122,22 +122,4 @@ Boolean isDownLoadStatus = NO;
     NSString *path = [[pathArr objectAtIndex:0] stringByAppendingPathComponent:@"downList.txt"];
     [arr writeToFile:path atomically:YES];
 }
-#pragma mark 存储下载进度
-- (void)saveDownLoadProgress:(NSDictionary *)dict productId:(NSString *)pid
-{
-    int nowTime = (int)[[NSDate date] timeIntervalSince1970];
-    if ((nowTime-self.curTimeVal)<2) {
-        
-    }else{
-//        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-//        [userDef removeObjectForKey:pid];
-//        [userDef setObject:dict forKey:pid];
-//        NSLog(@"pid=%@   last=%@",pid,[userDef objectForKey:pid]);
-        NSMutableArray *arr = [NSMutableArray arrayWithObjects:dict, nil];
-        NSArray *pathArr = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *path = [[pathArr objectAtIndex:0] stringByAppendingPathComponent:@"cur.txt"];
-        [arr writeToFile:path atomically:YES];
-        self.curTimeVal = (int)[[NSDate date] timeIntervalSince1970];
-    }
-}
 @end

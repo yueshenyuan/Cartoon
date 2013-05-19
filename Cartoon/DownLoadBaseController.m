@@ -66,14 +66,29 @@
     }
     return totalSize;
 }
+#pragma mark 删除商品下载进度
+- (void)removeProductDownProgress:(int) pid
+{
+    NSMutableArray *downList = nil;
+    NSArray *pathArr = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *path = [[pathArr objectAtIndex:0] stringByAppendingPathComponent:@"cur.txt"];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        downList = [[[NSMutableArray alloc] initWithContentsOfFile:path] autorelease];
+    }
+    for (NSDictionary *dict in downList) {
+        int savePid = [[dict objectForKey:@"pid"] intValue];
+        if (savePid == pid) {
+            [downList removeObject:dict];
+        }
+    }
+    [downList writeToFile:path atomically:YES];
+}
 #pragma mark 存储下载进度，已下载大小，总大小
 - (void)saveDownLoadProgress:(int)pid setProgress:(NSNumber *)progress setAlready:(NSNumber *)already setTotalSize:(NSNumber *)totalSize;
 {
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:pid],@"pid",progress,@"progress",
                                   already,@"already",
                                   totalSize,@"totalSize", nil];
-//    GlobalData *global = [GlobalData getGlobalData];
-//    [global saveDownLoadProgress:saveDownSize productId:pid];
     NSMutableArray *downList;
     NSArray *pathArr = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *path = [[pathArr objectAtIndex:0] stringByAppendingPathComponent:@"cur.txt"];

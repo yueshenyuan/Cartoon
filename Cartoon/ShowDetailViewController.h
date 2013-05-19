@@ -11,11 +11,18 @@
 @interface ShowDetailViewController : UIViewController<UIScrollViewDelegate>
 {
     NSArray *_imgsArr;
-    UIScrollView *_mainScroll;
-    
-    NSMutableArray *_arr;
 }
 @property(nonatomic,retain) NSArray *imgsArr;
 @property(nonatomic,retain) UIScrollView *mainScroll;
 @property(nonatomic,retain) NSMutableArray *arr;
+
+@property(nonatomic,assign) int currentImageCount;
+@property(nonatomic,retain) UIImageView *imageView1;
+@property(nonatomic,retain) UIImageView *imageView2;
+@property(nonatomic,retain) UIImageView *imageView3;
+
+@property(nonatomic,retain) NSMutableArray *dataList;
+@property(nonatomic,assign) int currentIndex;
+@property(nonatomic,assign) int currentPage;
+@property(nonatomic,retain) UIScrollView *curScrollView;
 @end

@@ -18,7 +18,10 @@
 }
 @synthesize imgsArr = _imgsArr;
 @synthesize mainScroll = _mainScroll;
-@synthesize arr= _arr;
+@synthesize currentImageCount = _currentImageCount;
+@synthesize imageView1, imageView2, imageView3;
+@synthesize dataList,currentPage,currentIndex;
+@synthesize curScrollView;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -34,49 +37,116 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
+    self.dataList = [[[NSMutableArray alloc] init] autorelease];
+    
     self.navigationItem.title = @"漫画浏览";
     self.navigationController.navigationBarHidden = YES;
     int winWidth = self.view.frame.size.width;
     int winHeight = self.view.frame.size.height;
+    
     _mainScroll = [[UIScrollView alloc] initWithFrame:self.view.bounds];
-    _mainScroll.contentSize = CGSizeMake(_imgsArr.count*winWidth, winHeight-42);
+    _mainScroll.contentSize = CGSizeMake(winWidth*3, winHeight-42);
     _mainScroll.pagingEnabled = YES;
+    _mainScroll.maximumZoomScale = 1.0;
+    _mainScroll.minimumZoomScale = 1.0;
+    _mainScroll.showsVerticalScrollIndicator = NO;
+    [_mainScroll setShowsHorizontalScrollIndicator:NO];
+    _mainScroll.alwaysBounceHorizontal = NO;
+    _mainScroll.alwaysBounceVertical = NO;
+    _mainScroll.delegate = self;
     UITapGestureRecognizer *tapClick = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showNavigationBar)];
     [_mainScroll addGestureRecognizer:tapClick];
-    _arr=[[NSMutableArray alloc] init];
-    int cou = 0;
-    if (_imgsArr.count>15) {
-        cou = 15;
-    }else{
-        cou = _imgsArr.count;
-    }
-    for (int i=0; i<cou; i++) {
-        UIImage *img = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/%@",[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"],[_imgsArr objectAtIndex:i]]];
-        UIImageView *imgView=[[[UIImageView alloc] initWithImage:img] autorelease];
-        UIScrollView *_subScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(768*i, 0, winWidth, _mainScroll.frame.size.height)];
-        _subScrollView.delegate = self;
-        _subScrollView.maximumZoomScale = 2.0;
-        _subScrollView.minimumZoomScale = 1.0;
-        _subScrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-        imgView.frame = _subScrollView.bounds;
-        imgView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-        [_subScrollView addSubview:imgView];
-        [_arr addObject:imgView];
-        [_mainScroll addSubview:_subScrollView];
-    }
     [self.view addSubview:_mainScroll];
+    _arr=[[[NSMutableArray alloc] init] autorelease];
+
+    for (int i=0; i<self.imgsArr.count; i++) {
+        UIImage *img = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/%@",[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"],[_imgsArr objectAtIndex:i]]];
+        UIScrollView *subScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, winWidth, _mainScroll.frame.size.height)];
+        subScrollView.tag = 1;
+        subScrollView.delegate = self;
+        subScrollView.maximumZoomScale = 1.5;
+        subScrollView.minimumZoomScale = 1.0;
+        subScrollView.alwaysBounceVertical = NO;
+        subScrollView.alwaysBounceHorizontal = NO;
+        UIImageView *imgView = [[[UIImageView alloc] initWithImage:img] autorelease];
+        imgView.frame = subScrollView.bounds;
+        [subScrollView addSubview:imgView];
+        [self.dataList addObject:subScrollView];
+    }
+    self.currentIndex = 0;
+    self.currentPage = 0;
+    
+    [self setPage];
 }
 // 设置UIScrollView中要缩放的视图
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
-    int index=_mainScroll.contentOffset.x/768;
-    UIImageView *view = [_arr objectAtIndex:index];
-    return view;
+    UIImageView *imgView = (UIImageView *)[self.curScrollView.subviews objectAtIndex:0];
+    return imgView;
 }
+
 //滚动结束后
 -(void)scrollViewDidEndDecelerating:(UIScrollView*)scrollView{
-    int index = scrollView.contentOffset.x;
-    NSLog(@"%d",index);
+    int pageWidth = scrollView.frame.size.width;
+    int index = _mainScroll.contentOffset.x/pageWidth;
+    if(index>currentIndex)
+    {
+        currentPage = currentPage+1==dataList.count?currentPage:currentPage+1;
+    }
+    else if(index<currentIndex)
+    {
+        currentPage = currentPage-1>=0?currentPage-1:dataList.count-1;
+    }
+    
+    if (currentPage+1 < dataList.count) {
+        for (UIScrollView *bv in self.mainScroll.subviews)
+        {
+            [bv removeFromSuperview];
+        }
+        [self setPage];
+    }else if((currentPage+1) == dataList.count){
+        self.currentIndex = 2;
+    }
+}
+- (void) setPage
+{
+    UIScrollView *nv;
+    int pageWidth = self.view.frame.size.width;
+    if (self.currentPage == 0) {
+        UIScrollView *cv = [dataList objectAtIndex:currentPage];
+        cv.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+        self.curScrollView = cv;
+        [self.mainScroll addSubview:cv];
+    }else{
+        UIScrollView *cv = [dataList objectAtIndex:currentPage];
+        cv.frame = CGRectMake(pageWidth, 0, self.view.frame.size.width, self.view.frame.size.height);
+        self.curScrollView = cv;
+        [self.mainScroll addSubview:cv];
+    }
+    
+    
+    if (self.currentPage > 0) {
+        int prvIndex = self.currentPage - 1;
+        UIScrollView *pv = [self.dataList objectAtIndex:prvIndex];
+        pv.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+        [self.mainScroll addSubview:pv];
+    }
+    
+    if ((self.currentPage+1) < self.dataList.count) {
+        int nextIndex = self.currentPage+1;
+        nv = [self.dataList objectAtIndex:nextIndex];
+        nv.frame = CGRectMake(pageWidth*2, 0, self.view.frame.size.width, self.view.frame.size.height);
+        [self.mainScroll addSubview:nv];
+    }
+    
+    if (self.currentPage == 0) {
+        currentIndex = 0;
+        nv.frame = CGRectMake(pageWidth, 0, self.view.frame.size.width, self.view.frame.size.height);
+        [self.mainScroll setContentOffset:CGPointMake(0, 0)];
+    }else {
+        currentIndex = 1;
+        [self.mainScroll setContentOffset:CGPointMake(pageWidth, 0)];
+    }
 }
 - (void)viewDidUnload
 {
@@ -103,15 +173,10 @@
 }
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    float x = (self.view.frame.size.width-768)/2;
-    _mainScroll.contentSize = CGSizeMake(_imgsArr.count*768, self.view.frame.size.height);
-    _mainScroll.frame = CGRectMake(x, 0, 768, self.view.frame.size.height);
 	return YES;
 }
 - (void) dealloc{
     [_imgsArr release];
-    [_mainScroll release];
-    [_arr release];
     [super release];
 }
 @end

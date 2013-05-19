@@ -37,5 +37,4 @@ extern Boolean isDownLoadStatus;
 + (Boolean) viewExists:(UIView *)mView tag:(int)tag;
 + (NSMutableArray *) getSaveLocalDownList;
 + (void)setSaveLocalDownList:(NSMutableArray *)arr;
-- (void)saveDownLoadProgress:(NSDictionary *)dict productId:(NSString *)pid;
 @end

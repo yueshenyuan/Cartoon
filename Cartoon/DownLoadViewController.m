@@ -220,7 +220,7 @@
 
 #pragma mark 下载文件
 - (void)downLoadCartoon:(id) sender
-{
+{conlen = 0;
     isDownLoadStatus = YES;
     DownComicInfo *downInfo;
     UIView *downView = (UIView *)sender;
@@ -281,7 +281,7 @@
     [self.netWorkQueue go];
     
 }
-
+static int conlen = 0;
 #pragma mark 获取下载文件大小和进度
 - (void)request:(ASIHTTPRequest *)request didReceiveResponseHeaders:(NSDictionary *)responseHeaders {
     if (!self.userDefs) {
@@ -289,9 +289,12 @@
     }
     int pid = request.tag;
     self.alreadyDown += request.contentLength/1024.0/1024.0;
+    conlen += request.contentLength;
+    NSLog(@"contentLength = %d ",conlen);
     //队列文件总大小
     float totalSize = [self.downBase getProductDownTotalSize:pid];
     if (totalSize < 0.0) {
+        NSLog(@"totalBytesToDownload = %d",self.netWorkQueue.totalBytesToDownload);
         totalSize = self.netWorkQueue.totalBytesToDownload/1024.0/1024.0;
     }
     
@@ -359,7 +362,7 @@
     self.netWorkQueue = que;
     [self.netWorkQueue reset];
     [self.netWorkQueue setShowAccurateProgress:YES];
-    [self.netWorkQueue setShouldCancelAllRequestsOnFailure:NO];
+    [self.netWorkQueue setShouldCancelAllRequestsOnFailure:YES];
     [self.netWorkQueue setQueueDidFinishSelector:@selector(downAllSuccess)];
     self.netWorkQueue.delegate = self;
     self.downPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
@@ -471,36 +474,38 @@
 {
     int pid = alertView.tag;
     if (buttonIndex == 0) {
-    UIView *deleView = [self.view viewWithTag:pid];
-    [deleView removeFromSuperview];
-    [self sequeItemViewLayout];
+        UIView *deleView = [self.view viewWithTag:pid];
+        [deleView removeFromSuperview];
+        [self sequeItemViewLayout];
     
-    //删除本地存储的下载信息
-    NSMutableArray *downListArr = [GlobalData getSaveLocalDownList];
-    for (NSDictionary *dict in downListArr) {
-        if ([[dict objectForKey:@"pid"] intValue] == pid) {
-            [downListArr removeObject:dict];
-            break;
+        //删除本地存储的下载信息
+        NSMutableArray *downListArr = [GlobalData getSaveLocalDownList];
+        for (NSDictionary *dict in downListArr) {
+            if ([[dict objectForKey:@"pid"] intValue] == pid) {
+                [downListArr removeObject:dict];
+                break;
+            }
         }
-    }
-    [GlobalData setSaveLocalDownList:downListArr];
-    //删除本地已下载文件
-    NSArray *pathArr = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *comicPath = [NSString stringWithFormat:@"%d",pid];
-    NSString *imageDir = [[pathArr objectAtIndex:0] stringByAppendingPathComponent:comicPath];
-    BOOL isDir = NO;
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    BOOL existed = [fileManager fileExistsAtPath:imageDir isDirectory:&isDir];
-    bool isDeleted = false;
-    if ( isDir == YES && existed == YES )
-    {
-        isDeleted = [fileManager removeItemAtPath:imageDir error:nil];
-    }
+        [GlobalData setSaveLocalDownList:downListArr];
+        //删除本地存储的下载进度信息
+        [self.downBase removeProductDownProgress:pid];
+        //删除本地已下载文件
+        NSArray *pathArr = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *comicPath = [NSString stringWithFormat:@"%d",pid];
+        NSString *imageDir = [[pathArr objectAtIndex:0] stringByAppendingPathComponent:comicPath];
+        BOOL isDir = NO;
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        BOOL existed = [fileManager fileExistsAtPath:imageDir isDirectory:&isDir];
+        bool isDeleted = false;
+        if ( isDir == YES && existed == YES )
+        {
+            isDeleted = [fileManager removeItemAtPath:imageDir error:nil];
+        }
         NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
         [userDef removeObjectForKey:[NSString stringWithFormat:@"%d",pid]];
-    if (isDeleted) {
-        NSLog(@"删除成功");
-    }
+        if (isDeleted) {
+            NSLog(@"删除成功");
+        }
     }
 }
 - (void) viewDidDisappear:(BOOL)animated

@@ -63,7 +63,7 @@
     _listView = [[[UIView alloc] initWithFrame:CGRectMake(0, 320, self.view.frame.size.width, 600)] autorelease];
     _listView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
-    _tabView = [[[UITableView alloc] initWithFrame:CGRectMake(0,0, _listView.frame.size.width, 600) style:UITableViewStyleGrouped] autorelease];
+    _tabView = [[[UITableView alloc] initWithFrame:CGRectMake(-20,0, _listView.frame.size.width+40, 600) style:UITableViewStyleGrouped] autorelease];
     _tabView.hidden = YES;
     _tabView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _tabView.dataSource = self;

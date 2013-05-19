@@ -99,8 +99,9 @@
     [self.view addSubview:self.featuredSubModule1];
     [self.view addSubview:self.featuredSubModule2];
     
-    [self getModuleData1];
     
+    NSTimer *myTimer = [NSTimer  timerWithTimeInterval:0.5 target:self selector:@selector(getModuleData1)userInfo:nil repeats:NO];
+    [[NSRunLoop  currentRunLoop] addTimer:myTimer forMode:NSDefaultRunLoopMode];
 }
 
 #pragma mark 获取第一个栏目数据
@@ -185,8 +186,6 @@
     ListPageViewController1 *listPage = [[ListPageViewController1 alloc] init];
     listPage.listID = tag;
     [self.navigationController pushViewController:listPage animated:YES];
-    [listPage release];
-
 }
 #pragma mark 跳转到漫画章节页
 - (void)comicChapters:(id) sender{

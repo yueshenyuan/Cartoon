@@ -20,5 +20,6 @@
 - (float)getProductDownProgress:(int) pid;
 - (float)getProductDownAlready:(int) pid;
 - (float)getProductDownTotalSize:(int) pid;
+- (void)removeProductDownProgress:(int) pid;
 - (void)saveDownLoadProgress:(int)pid setProgress:(NSNumber *)progress setAlready:(NSNumber *)already setTotalSize:(NSNumber *)totalSize;
 @end
