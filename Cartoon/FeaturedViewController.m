@@ -16,6 +16,7 @@
 #import "UIImage+UIImageExtras.h"
 #import "LoadingViewController.h"
 #import "SettingView.h"
+#import <QuartzCore/QuartzCore.h>
 @interface FeaturedViewController ()
 
 @end
@@ -389,10 +390,25 @@
         NSArray *products = [[lists objectAtIndex:j] objectForKey:@"products"];
         if(type == 0){
             UIView *listView = [[[UIView alloc] init] autorelease];
-            listView.frame =  CGRectMake(20, 575+j*230+j*10, self.view.frame.size.width-40, 230);
-            listView.backgroundColor = [UIColor darkGrayColor];
+            listView.frame =  CGRectMake(20, 575+j*260+j*10, self.view.frame.size.width-40, 260);
             listView.layer.borderWidth = 3;
             listView.layer.borderColor = [[UIColor colorWithWhite:1.0f alpha:1.0f] CGColor];
+            CGRect rect = CGRectMake(0, 0, listView.frame.size.width, listView.frame.size.height);
+            CAGradientLayer *gradient = [CAGradientLayer layer];
+            gradient.frame = rect;
+            //渐变颜色，可以调，各种样式的。
+            gradient.colors = [NSArray arrayWithObjects:
+                               (id)[RGBCOLOR(191, 207, 232,1) CGColor],
+                               (id)[RGBCOLOR(177, 193, 216,1) CGColor],
+                               (id)[RGBCOLOR(160, 171, 191,1) CGColor],
+                               (id)[RGBCOLOR(131, 140, 157,1) CGColor],
+                               (id)[RGBCOLOR(107, 115, 130,1) CGColor],
+                               (id)[RGBCOLOR(91, 97, 111,1) CGColor],
+                               (id)[RGBCOLOR(66, 72, 78,1) CGColor],
+                               (id)[RGBCOLOR(21, 22, 24,1) CGColor],
+                               nil];
+            [listView.layer insertSublayer:gradient atIndex:0];
+            
             UIView *listTitleView1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0,  self.view.frame.size.width-40, 30)];
             listTitleView1.backgroundColor = [UIColor viewFlipsideBackgroundColor];
             listTitleView1.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin;
@@ -409,18 +425,41 @@
             [listTitleView1 addSubview:allComicLab];
             [listView addSubview:listTitleView1];
             UIScrollView *fvcScrollView1 = [[[UIScrollView alloc] init] autorelease];
-            fvcScrollView1.frame = CGRectMake(0, 45, self.view.frame.size.width-40, 180);
+            fvcScrollView1.frame = CGRectMake(0, 40, self.view.frame.size.width-40, listView.frame.size.height);
             for(int i=0;i<products.count;i++) {
                 int pid = [[[products objectAtIndex:i] objectForKey:@"id"] intValue];
                 NSString *imgUrl = [[products objectAtIndex:i] objectForKey:@"cover"];
+                NSString *name = [[products objectAtIndex:i] objectForKey:@"name"];
+                NSString *comic_name = [[products objectAtIndex:i] objectForKey:@"comic_name"];
+                
+                UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(i*120+10*i+10, 0, 120, 160)] autorelease];
+                UIImageView *bgView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"index_bookBg.png"]] autorelease];
+                bgView.frame = view.bounds;
+                [view addSubview:bgView];
+                [view sendSubviewToBack:bgView];
                 UIImage *img = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imgUrl]]];
                 UIImageView *imgView = [[UIImageView alloc] initWithImage:img];
-                imgView.frame = CGRectMake(i*120+10*i+10, 0, 110, 160);
+                imgView.frame = CGRectMake(4, 0, 109, 156);
                 imgView.userInteractionEnabled = YES;
                 imgView.tag = pid;
                 UITapGestureRecognizer *imgTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(comicChapters:)];
                 [imgView addGestureRecognizer:imgTap];
-                [fvcScrollView1 addSubview:imgView];
+                [view addSubview:imgView];
+                UILabel *nameLab = [[[UILabel alloc] initWithFrame:CGRectMake(0, view.frame.size.height+5, view.frame.size.width, 15)] autorelease];
+                nameLab.text = name;
+                nameLab.textColor = [UIColor whiteColor];
+                nameLab.backgroundColor = [UIColor clearColor];
+                nameLab.textAlignment = UITextAlignmentCenter;
+                UILabel *comic_nameLab = [[[UILabel alloc] initWithFrame:CGRectMake(0, view.frame.size.height+27, view.frame.size.width, 15)] autorelease];
+                comic_nameLab.text = comic_name;
+                comic_nameLab.textAlignment = UITextAlignmentCenter;
+                comic_nameLab.textColor = RGBCOLOR(154, 154, 154, 1);
+                comic_nameLab.backgroundColor = [UIColor clearColor];
+                UIFont *font = [UIFont fontWithName:@"Arial" size:14.0];
+                comic_nameLab.font = font;
+                [view addSubview:nameLab];
+                [view addSubview:comic_nameLab];
+                [fvcScrollView1 addSubview:view];
             }
             fvcScrollView1.maximumZoomScale = 1;
             fvcScrollView1.minimumZoomScale = 1;

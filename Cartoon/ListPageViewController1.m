@@ -48,7 +48,8 @@
     _mainView = [[[UIView alloc] init] autorelease];
     self.listArr = [[[NSMutableArray alloc] init] autorelease];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@interface.action?method=full.special.get&special_id=%d&layout_id=0&language=1&format=json",API_URL,self.listID];
+    int special_id = self.listID;
+    NSString *urlStr = [NSString stringWithFormat:@"%@interface.action?method=full.special.get&special_id=%d&layout_id=0&language=1&format=json",API_URL,special_id];
     
     NSURL *url = [NSURL URLWithString: urlStr];
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
@@ -60,7 +61,7 @@
     _topView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     
     //生成分类列表
-    _listView = [[[UIView alloc] initWithFrame:CGRectMake(0, 320, self.view.frame.size.width, 600)] autorelease];
+    _listView = [[[UIView alloc] initWithFrame:CGRectMake(0, 300, self.view.frame.size.width, 600)] autorelease];
     _listView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
     _tabView = [[[UITableView alloc] initWithFrame:CGRectMake(-20,0, _listView.frame.size.width+40, 600) style:UITableViewStyleGrouped] autorelease];
@@ -69,7 +70,9 @@
     _tabView.dataSource = self;
     _tabView.delegate = self;
     _tabView.scrollEnabled = NO;
+    _tabView.backgroundView = nil;
     _tabView.backgroundColor = [UIColor clearColor];
+    _tabView.sectionHeaderHeight = 30.0;
     [_listView addSubview:_tabView];
     _mainView.frame = CGRectMake(0, 0, self.view.frame.size.width, _topView.frame.size.height+_listView.frame.size.height+500);
     _mainScrollView.contentSize = _mainView.frame.size;
@@ -79,11 +82,25 @@
     [_mainScrollView addSubview:_mainView];
     [self.view addSubview:_mainScrollView];
 }
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    return  [[self.listArr objectAtIndex:section] objectForKey:@"name"];
-}
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+//    return  [[self.listArr objectAtIndex:section] objectForKey:@"name"];
+//}
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.listArr.count;
+}
+
+//返回分组标题View
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(60, 0, tableView.frame.size.width-60, 20)] autorelease];
+    headerView.backgroundColor = [UIColor clearColor];
+    UILabel *nameLab = [[[UILabel alloc] initWithFrame:CGRectMake(50, 0, headerView.frame.size.width, 20)] autorelease];
+    nameLab.text = [[self.listArr objectAtIndex:section] objectForKey:@"name"];
+    nameLab.font = [UIFont boldSystemFontOfSize:20.0f];
+    nameLab.textColor = [UIColor blackColor];
+    nameLab.backgroundColor = [UIColor clearColor];
+    [headerView addSubview:nameLab];
+    return  headerView;
 }
 //行
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -107,7 +124,11 @@
         cell = [array objectAtIndex:0];
     }
     cell.backgroundView = nil;
-    cell.backgroundColor = [UIColor clearColor];
+    if (indexPath.row%2 == 0) {
+        cell.backgroundColor = RGBCOLOR(16, 16, 16, 1);
+    }else{
+        cell.backgroundColor = RGBCOLOR(37, 37, 37, 1);
+    }
     
     int section = indexPath.section;
     int row = indexPath.row;
@@ -137,6 +158,9 @@
     UITapGestureRecognizer *rightGest = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(downComic:)];
     self.rightView.userInteractionEnabled = YES;
     [self.rightView addGestureRecognizer:rightGest];
+    UIView *leftBorderView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 2, self.leftView.frame.size.height)] autorelease];
+    leftBorderView.backgroundColor = RGBCOLOR(59, 59, 59, 1);
+    [self.rightView addSubview:leftBorderView];
 
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;

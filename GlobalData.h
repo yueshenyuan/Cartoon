@@ -18,6 +18,8 @@
 UIAlertView *alert1 = [[[UIAlertView alloc] initWithTitle:@"提示" message:m delegate:nil cancelButtonTitle:@"确认" otherButtonTitles:nil] autorelease];\
 [alert1 show]; \
 }
+//设置颜色
+#define RGBCOLOR(r,g,b,_alpha) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:_alpha]
 
 #pragma mark coverflow详情页
 
