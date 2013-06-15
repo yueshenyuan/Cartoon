@@ -115,7 +115,6 @@
 {
     NSDictionary *downInfoDict = (NSDictionary *)[notification object];
     DownComicInfo *downInfo = [downInfoDict objectForKey:@"downInfo"];
-    self.currentDownId = [downInfo.pid intValue];
     NSString *imgFilePath = downInfo.icon;
     
     UIView *itemView = [[[UIView alloc] init] autorelease];
@@ -179,6 +178,7 @@
                 [downBtn addTarget:self action:@selector(downComicClick:) forControlEvents:UIControlEventTouchUpInside];
             }else if(self.currentDownId == pid){
                 self.currentDownId = nil;
+                isDownLoadStatus = NO;
                 [downBtn setTitle:@"下载" forState:UIControlStateNormal];
                 [downBtn addTarget:self action:@selector(downComicClick:) forControlEvents:UIControlEventTouchUpInside];
                 
@@ -220,18 +220,19 @@
 
 #pragma mark 下载文件
 - (void)downLoadCartoon:(id) sender
-{conlen = 0;
+{
+    conlen = 0;
     isDownLoadStatus = YES;
     DownComicInfo *downInfo;
     UIView *downView = (UIView *)sender;
     int index = downView.tag;
     self.currentDownId = index;
-    if (self.netWorkQueue == nil) {
+//    if (self.netWorkQueue == nil) {
         [self setNetWorkQue];
-    }
-    else{
-        [self.netWorkQueue reset];
-    }
+//    }
+//    else{
+//        [self.netWorkQueue reset];
+//    }
     NSArray *downInfoList = [GlobalData getCurrentDownList];
     for (int i=0; i<downInfoList.count; i++) {
         DownComicInfo *di =[downInfoList objectAtIndex:i];
@@ -294,7 +295,7 @@ static int conlen = 0;
     //队列文件总大小
     float totalSize = [self.downBase getProductDownTotalSize:pid];
     if (totalSize < 0.0) {
-        NSLog(@"totalBytesToDownload = %d",self.netWorkQueue.totalBytesToDownload);
+        NSLog(@"totalBytesToDownload = %f",self.netWorkQueue.totalBytesToDownload);
         totalSize = self.netWorkQueue.totalBytesToDownload/1024.0/1024.0;
     }
     
@@ -305,6 +306,9 @@ static int conlen = 0;
     NSNumber *totalDownSize = [NSNumber numberWithFloat:totalSize];
     [self.downBase saveDownLoadProgress:pid setProgress:saveProgressSize setAlready:alreadyDownSize setTotalSize:totalDownSize];
 //    NSLog(@"进度:%fM  已下载：%fM  总大小：%fM",[saveProgressSize floatValue],[alreadyDownSize floatValue],[totalDownSize floatValue]);
+    if ([saveProgressSize intValue] > 1) {
+        [self downAllSuccess];
+    }
     UIView *curDownView = [self.view viewWithTag:request.tag];
     for (UIView *view in curDownView.subviews) {
         if ([view isKindOfClass:[UIProgressView class]]) {
@@ -358,7 +362,7 @@ static int conlen = 0;
 //设置下载队列
 - (void) setNetWorkQue
 {
-    ASINetworkQueue   *que = [[[ASINetworkQueue alloc] init] autorelease];
+    ASINetworkQueue   *que = [[ASINetworkQueue alloc] init];
     self.netWorkQueue = que;
     [self.netWorkQueue reset];
     [self.netWorkQueue setShowAccurateProgress:YES];
@@ -381,14 +385,8 @@ static int conlen = 0;
 {
     NSLog(@"全部下载完成");
     isDownLoadStatus = NO;
-    [self setNetWorkQue];
     //将刚刚下载的项目删除出下载队列
-    for (DownComicInfo *dci in [GlobalData getCurrentDownList]) {
-        if ([dci.pid intValue] == self.currentDownId) {
-            [[GlobalData getCurrentDownList] removeLastObject];
-            break;
-        }
-    }
+    [GlobalData removeCurrentDownList:self.currentDownId];
     
     UIView *dView = nil;
     for (UIView *vw in self.view.subviews) {
@@ -477,7 +475,9 @@ static int conlen = 0;
         UIView *deleView = [self.view viewWithTag:pid];
         [deleView removeFromSuperview];
         [self sequeItemViewLayout];
-    
+        
+        //移除本地下载队列
+        [GlobalData removeCurrentDownList:pid];
         //删除本地存储的下载信息
         NSMutableArray *downListArr = [GlobalData getSaveLocalDownList];
         for (NSDictionary *dict in downListArr) {

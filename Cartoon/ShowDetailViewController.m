@@ -45,7 +45,7 @@
     int winHeight = self.view.frame.size.height;
     
     _mainScroll = [[UIScrollView alloc] initWithFrame:self.view.bounds];
-    _mainScroll.contentSize = CGSizeMake(winWidth*3, winHeight-42);
+    _mainScroll.contentSize = CGSizeMake(winWidth*3, winHeight);
     _mainScroll.pagingEnabled = YES;
     _mainScroll.maximumZoomScale = 1.0;
     _mainScroll.minimumZoomScale = 1.0;
@@ -169,7 +169,9 @@
     }else{
         [[self navigationController] setNavigationBarHidden:YES animated:YES];
     }
-    _mainScroll.frame = self.view.bounds;
+    CGRect rect = self.view.frame;
+    _mainScroll.frame = rect;
+    _mainScroll.contentSize = CGSizeMake(rect.size.width*3, rect.size.height);
 }
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

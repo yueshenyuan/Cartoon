@@ -34,6 +34,7 @@ extern Boolean isDownLoadStatus;
 + (GlobalData *) getGlobalData;
 + (NSMutableArray *) getCurrentDownList;
 + (void) setCurrentDownList:(id)arr;
++ (void) removeCurrentDownList:(int)pid;
 + (NSString *) getDownLoadStatus;
 + (void) setDownLoadStatus:(Boolean)b;
 + (Boolean) viewExists:(UIView *)mView tag:(int)tag;

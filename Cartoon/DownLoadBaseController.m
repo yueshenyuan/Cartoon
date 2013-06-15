@@ -75,7 +75,14 @@
     if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
         downList = [[[NSMutableArray alloc] initWithContentsOfFile:path] autorelease];
     }
-    for (NSDictionary *dict in downList) {
+//    for (NSDictionary *dict in downList) {
+//        int savePid = [[dict objectForKey:@"pid"] intValue];
+//        if (savePid == pid) {
+//            [downList removeObject:dict];
+//        }
+//    }
+    for (int i=0; i<downList.count; i++) {
+        NSDictionary *dict = (NSDictionary *)[downList objectAtIndex:i];
         int savePid = [[dict objectForKey:@"pid"] intValue];
         if (savePid == pid) {
             [downList removeObject:dict];

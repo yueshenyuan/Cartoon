@@ -85,6 +85,15 @@ Boolean isDownLoadStatus = NO;
     
     [CurrentDownList addObject:dInfo];
 }
++ (void) removeCurrentDownList:(int)pid
+{
+    for (int i=0;i<CurrentDownList.count;i++) {
+        DownComicInfo *info = (DownComicInfo *)[CurrentDownList objectAtIndex:i];
+        if ([info.pid intValue] == pid) {
+            [CurrentDownList removeObject:info];
+        }
+    }
+}
 + (NSString *) downLoadStatus
 {
     return isDownLoad;

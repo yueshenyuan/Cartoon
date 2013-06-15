@@ -51,6 +51,7 @@
     
     DownLoadViewController *dvc = [[[DownLoadViewController alloc] init] autorelease];
     dvc.title = @"下载管理";
+    dvc.view;
     dvc.tabBarItem = [[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemDownloads tag:3] autorelease];
     UINavigationController *dvcNav = [[[UINavigationController alloc] initWithRootViewController:dvc] autorelease];
 

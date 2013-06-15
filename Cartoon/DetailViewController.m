@@ -159,6 +159,7 @@
         }
         [downListArr writeToFile:path atomically:YES];
         
+        //通过广播通知下载页进行下载操作
         NSDictionary *downInfoDict = [NSDictionary dictionaryWithObject:downInfo forKey:@"downInfo"];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"button1" object:downInfoDict];//注意object属性
         
