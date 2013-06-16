@@ -108,6 +108,9 @@
             [self.view addSubview:itemView];
         }
     }
+    if (currentDownList.count == 0) {
+        self.navigationItem.rightBarButtonItem = nil;
+    }
 } 
 
 #pragma mark 由详情页直接跳转到下载页
@@ -204,19 +207,6 @@
         itemView.frame = CGRectMake((i%4)*190+10, row*250+row*10, 200, 250);
     }
 }
-- (void)openCartoon{//解压zip包并浏览漫画
-    
-    ZipArchive *zip = [[[ZipArchive alloc] init] autorelease];
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *dcoumentpath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
-    NSString* l_zipfile = [dcoumentpath stringByAppendingString:@"/归档.zip"] ;
-    NSString* unzipto = [dcoumentpath stringByAppendingString:@"/testImg"] ;
-    if( [zip UnzipOpenFile:l_zipfile] ) {
-        BOOL ret = [zip UnzipFileTo:unzipto overWrite:YES];
-        if( NO==ret ) { }
-        [zip UnzipCloseFile];
-    }
-}
 
 #pragma mark 下载文件
 - (void)downLoadCartoon:(id) sender
@@ -227,12 +217,7 @@
     UIView *downView = (UIView *)sender;
     int index = downView.tag;
     self.currentDownId = index;
-//    if (self.netWorkQueue == nil) {
-        [self setNetWorkQue];
-//    }
-//    else{
-//        [self.netWorkQueue reset];
-//    }
+    [self setNetWorkQue];
     NSArray *downInfoList = [GlobalData getCurrentDownList];
     for (int i=0; i<downInfoList.count; i++) {
         DownComicInfo *di =[downInfoList objectAtIndex:i];

@@ -7,7 +7,6 @@
 //
 
 #import "PopularListController.h"
-#import "GlobalData.h"
 #import "ASIHTTPRequest.h"
 #import "DetailViewController.h"
 @interface PopularListController ()
@@ -33,22 +32,19 @@
     self.view.backgroundColor=[UIColor redColor];
     self.tabView.hidden=YES;
 
+    _api = [[NetAPI alloc] init];
+    _api.delegate = self;
     [self getIndex];
 }
 - (void)getIndex
 {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@interface.action?method=full.popular.products.get&language=1&format=json",API_URL]];
-    ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:url];
-    request.delegate = self;
-    [request startAsynchronous];
-    LOADINGSHOW_MESSAGE(nil, MODELODING);
+    NSMutableDictionary *mdict = [NSMutableDictionary dictionary];
+    [mdict setValue:@"full.popular.products.get" forKey:@"method"];
+    [_api sendRequest:mdict];
 }
 //获取数据成功
-- (void)requestFinished:(ASIHTTPRequest *)request
+- (void)requestDidFinished:(NSDictionary *)dict
 {
-    LOADINGDISMISS;
-    NSData *data = [[request responseString] dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary *dict = [data objectFromJSONData];
     self.dataList = [dict objectForKey:@"products"];
     if (self.dataList.count>0) {
 //        for (int i=0; i<self.dataList.count; i++) {
@@ -156,5 +152,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+- (void)dealloc
+{
+    [_api release];
+}
 @end

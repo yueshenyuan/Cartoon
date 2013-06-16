@@ -7,16 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface ListPageViewController1 : UIViewController<UITableViewDataSource,UITableViewDelegate>
+#import "GlobalData.h"
+@interface ListPageViewController1 : UIViewController<UITableViewDataSource,UITableViewDelegate,requestDelete>
 {
-//    UIScrollView *_mainScrollView;
-//    UIView *_mainView;
-//    UIView *_topView;
-//    BOOL *_winHV;//横屏 竖屏的标示，用户生成tableview时判断
-//    UIView *_listView;
-//    UITableView *_tabView;
-//    NSInteger *_listID;
+    NetAPI *_api;
 }
 @property(nonatomic,retain) UIScrollView *mainScrollView;
 @property(nonatomic,retain) UIView *mainView;

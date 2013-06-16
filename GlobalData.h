@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "AppDelegate.h"
+#import "NetAPI.h"
 
-#define API_URL @"http://comicservice.ifun360.com/comic_service_test/"  //接口域名
+#define API_URL @"http://comicservice.ifun360.com/comic_service_test/interface.action"  //接口域名
 #define LOADINGSHOW_MESSAGE(m,modes) [((AppDelegate *)[[UIApplication sharedApplication] delegate]).loadingViewController showLoadingWithTitle:m inView:[UIApplication sharedApplication].keyWindow mode:modes];
 #define LOADINGDISMISS [((AppDelegate *)[[UIApplication sharedApplication] delegate]).loadingViewController dismissLoading];
 //提示框

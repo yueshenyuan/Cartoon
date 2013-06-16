@@ -5,7 +5,6 @@
 //  Created by yueshenyuan on 12-12-8.
 //  Copyright (c) 2012年 fanzhi. All rights reserved.
 //
-#import "GlobalData.h"
 #import "DetailViewController.h"
 #import "CoverFlowView.h"
 #import "DetailClass.h"
@@ -46,14 +45,15 @@
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
     self.navigationItem.title = @"商品详情";
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
-    NSString *urlStr = [NSString stringWithFormat:@"%@interface.action?method=full.product.get&product_id=%@&format=json",API_URL,self.product_id];
     
-    NSURL *url = [NSURL URLWithString: urlStr];
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
-    request.delegate = self;
-    [request startAsynchronous];
+    _api = [[NetAPI alloc] init];
+    _api.delegate = self;
+
     self.netWordType = @"detail";
-    LOADINGSHOW_MESSAGE(nil, DISMODELODING);
+    NSMutableDictionary *mdict = [NSMutableDictionary dictionary];
+    [mdict setObject:@"full.product.get" forKey:@"method"];
+    [mdict setValue:self.product_id forKey:@"product_id"];
+    [_api sendRequest:mdict];
     
     [self.downBtn addTarget:self action:@selector(downFun) forControlEvents:UIControlEventTouchUpInside];
 }
@@ -62,20 +62,15 @@
 {
     NSString *pid = [[self.imgArr objectAtIndex:theIndex] objectForKey:@"id"];
     self.product_id = pid;
-    NSString *urlStr = [NSString stringWithFormat:@"%@interface.action?method=full.product.get&product_id=%@&format=json",API_URL,pid];
-    NSURL *url = [NSURL URLWithString:urlStr];
+    
     self.netWordType = @"detail2";
-    LOADINGSHOW_MESSAGE(nil, DISMODELODING);
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
-    request.delegate = self;
-    [request startAsynchronous];
+    NSMutableDictionary *mdict = [NSMutableDictionary dictionary];
+    [mdict setValue:@"full.product.get" forKey:@"method"];
+    [mdict setValue:pid forKey:@"product_id"];
 }
 //获取数据成功
-- (void)requestFinished:(ASIHTTPRequest *)request
+- (void)requestDidFinished:(NSDictionary *)dict
 {
-    LOADINGDISMISS;
-    NSData *data = [[request responseString] dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary *dict = [data objectFromJSONData];
     if ([self.netWordType isEqualToString:@"detail"]) {
         self.imgArr = [dict objectForKey:@"all_products"];
         
@@ -180,13 +175,12 @@
         SHOWALERT(@"您已下载该商品");
         return;
     }
-    NSString *urlStr = [NSString stringWithFormat:@"%@interface.action?method=full.product.download.get&product_id=%@&format=json",API_URL,self.product_id];
-    NSURL *url = [NSURL URLWithString:urlStr];
+    
     self.netWordType = @"down";
-    ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:url] autorelease];
-    request.delegate = self;
-    [request startAsynchronous];
-    LOADINGSHOW_MESSAGE(nil, DISMODELODING);
+    NSMutableDictionary *mdict = [NSMutableDictionary dictionary];
+    [mdict setValue:@"full.product.download.get" forKey:@"method"];
+    [mdict setValue:self.product_id forKey:@"product_id"];
+    [_api sendRequest:mdict];
 }
 //判断将要下载的文件是否已存在下载序列
 - (Boolean)isDownExistence:(NSString *)pid
@@ -209,6 +203,7 @@
 }
 - (void) dealloc
 {
+    [_api release];
     [self.product_id release];
     [self.coverFlowView release];
     [self.imgArr release];

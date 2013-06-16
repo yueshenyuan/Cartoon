@@ -60,6 +60,7 @@
 		58965339171E7205001EADF5 /* FeatureCell_M1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58965338171E7205001EADF5 /* FeatureCell_M1.xib */; };
 		5896533C171E778A001EADF5 /* myCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5896533B171E778A001EADF5 /* myCell.m */; };
 		589A051E1750A29E001FBDF0 /* vimg.png in Resources */ = {isa = PBXBuildFile; fileRef = 589A051D1750A29E001FBDF0 /* vimg.png */; };
+		58A0D7D7176DA0E300BA3638 /* NetAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 58A0D7D6176DA0E300BA3638 /* NetAPI.m */; };
 		58A26A511695717C00F76424 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 58A26A501695717C00F76424 /* JSONKit.m */; };
 		58A26A5516958FE300F76424 /* DetailClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 58A26A5416958FE300F76424 /* DetailClass.m */; };
 		58DD0E17171EF6F500AA6A97 /* FreeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58DD0E16171EF6F500AA6A97 /* FreeViewController.m */; };
@@ -162,6 +163,8 @@
 		5896533A171E778A001EADF5 /* myCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myCell.h; sourceTree = "<group>"; };
 		5896533B171E778A001EADF5 /* myCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myCell.m; sourceTree = "<group>"; };
 		589A051D1750A29E001FBDF0 /* vimg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vimg.png; sourceTree = "<group>"; };
+		58A0D7D5176DA0E300BA3638 /* NetAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetAPI.h; sourceTree = "<group>"; };
+		58A0D7D6176DA0E300BA3638 /* NetAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetAPI.m; sourceTree = "<group>"; };
 		58A26A4F1695717C00F76424 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		58A26A501695717C00F76424 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		58A26A5316958FE300F76424 /* DetailClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailClass.h; sourceTree = "<group>"; };
@@ -432,6 +435,7 @@
 		5893562717048A1F0092C0ED /* 公用 */ = {
 			isa = PBXGroup;
 			children = (
+				58A0D7D4176DA09D00BA3638 /* 网络 */,
 				5851A17F1708795F00A0A932 /* Common */,
 				5851A17E1706911300A0A932 /* 全局参数 */,
 				58961A031705E4C600D1EC56 /* 改变图片大小-旋转角度等 */,
@@ -476,6 +480,15 @@
 				5896533B171E778A001EADF5 /* myCell.m */,
 			);
 			name = "受欢迎的(商品)";
+			sourceTree = "<group>";
+		};
+		58A0D7D4176DA09D00BA3638 /* 网络 */ = {
+			isa = PBXGroup;
+			children = (
+				58A0D7D5176DA0E300BA3638 /* NetAPI.h */,
+				58A0D7D6176DA0E300BA3638 /* NetAPI.m */,
+			);
+			name = "网络";
 			sourceTree = "<group>";
 		};
 		58A26A4E1695717B00F76424 /* JSONKit */ = {
@@ -609,6 +622,7 @@
 				58DD0E17171EF6F500AA6A97 /* FreeViewController.m in Sources */,
 				58702193172FC944005A14C6 /* SettingView.m in Sources */,
 				586FE4D4173E84EB00D3BA3D /* DownLoadBaseController.m in Sources */,
+				58A0D7D7176DA0E300BA3638 /* NetAPI.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

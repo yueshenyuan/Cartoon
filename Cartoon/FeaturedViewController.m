@@ -5,7 +5,6 @@
 //  Created by yueshenyuan on 12-12-6.
 //  Copyright (c) 2012年 fanzhi. All rights reserved.
 //
-#import "GlobalData.h"
 #import <QuartzCore/QuartzCore.h>
 #import "FeaturedViewController.h"
 #import "ListPageViewController1.h"
@@ -61,6 +60,9 @@
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
 
+    _api = [[NetAPI alloc] init];
+    _api.delegate = self;
+    
     NSLog(@"%@",[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]);
     //设置顶部导航栏
     _segControl = [[[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"精选FEATURED",@"JUST ADDED",
@@ -108,20 +110,15 @@
 #pragma mark 获取第一个栏目数据
 - (void) getModuleData1
 {
-    LOADINGSHOW_MESSAGE(nil, DISMODELODING);
-    NSString *urlStr = API_URL @"interface.action?method=full.featured.get&layout_id=0&language=1&format=json";
-    ASIHTTPRequest * req1 =[ASIHTTPRequest requestWithURL:[NSURL URLWithString:urlStr]];
-    req1.delegate=self;
-    [req1 startAsynchronous];
+    NSMutableDictionary *cmtData = [NSMutableDictionary dictionary];
+    [cmtData setObject:@"full.featured.get" forKey:@"method"];
+    [_api sendRequest:cmtData];
 }
 #pragma mark 获取第二个栏目的数据
 - (void) getModuleData2
 {
-    LOADINGSHOW_MESSAGE(nil, DISMODELODING);
-    NSString *urlStr = API_URL @"interface.action?method=full.popular.products.get&language=1&format=json";
-    ASIHTTPRequest * req2 =[ASIHTTPRequest requestWithURL:[NSURL URLWithString:urlStr]];
-    req2.delegate=self;
-    [req2 startAsynchronous];
+    NSMutableDictionary *cmtData = [NSMutableDictionary dictionary];
+    [cmtData setObject:@"full.popular.products.get" forKey:@"method"];
 }
 
 //点击UISegmentedControl 触发事件
@@ -148,9 +145,6 @@
             [self.featuredSubModule0 setHidden:YES];
             [self.featuredSubModule1 setHidden:YES];
             [self.featuredSubModule2 setHidden:NO];
-//            PopularListController *popularListCtl = [[PopularListController alloc] init];
-//            [self.navigationController pushViewController:popularListCtl animated:YES];
-//            [popularListCtl release];
             break;
         }
         default:
@@ -197,26 +191,16 @@
     [self.navigationController pushViewController:dvc animated:YES];
 }
 #pragma mark 获取数据成功
-- (void)requestFinished:(ASIHTTPRequest *)request
+- (void)requestDidFinished:(NSDictionary *)dict
 {
-    LOADINGDISMISS;
-    NSString *data = [request responseString];
-    if([data isEqualToString:@""]){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"服务提示" message:@"获取数据失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alert show];
-    }else{
-        NSData *jsonData=[data dataUsingEncoding:NSUTF8StringEncoding];
-        NSDictionary *dict=[jsonData objectFromJSONData];
-        if (self.currentModule == 0) {
-            [self setModulePage0:dict];
-        }else if(self.currentModule == 1){
-            self.dataList_M1 =  [dict objectForKey:@"products"];
-            [self setModulePage1];
-        }else if(self.currentModule == 2){
-            
-        }
+    if (self.currentModule == 0) {
+        [self setModulePage0:dict];
+    }else if(self.currentModule == 1){
+        self.dataList_M1 =  [dict objectForKey:@"products"];
+        [self setModulePage1];
+    }else if(self.currentModule == 2){
+        
     }
-    [self.request clearDelegatesAndCancel];
 }
 #pragma mark   数据请求失败
 - (void)requestFailed:(ASIHTTPRequest *)request
@@ -493,6 +477,7 @@
 }
 - (void) dealloc
 {
+    [_api release];
     [self.request release];
     [self.mainScrollView release];
     [self.segControl release];

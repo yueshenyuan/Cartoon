@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface PopularListController : UIViewController<UITableViewDataSource,UITableViewDelegate>
-
+#import "GlobalData.h"
+@interface PopularListController : UIViewController<UITableViewDataSource,UITableViewDelegate,requestDelete>
+{
+    NetAPI *_api;
+}
 @property(nonatomic,retain) NSArray *dataList;
 @property(nonatomic,retain)UITableView *tabView;
 

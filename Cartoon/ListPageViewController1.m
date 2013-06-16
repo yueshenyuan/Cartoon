@@ -5,7 +5,6 @@
 //  Created by yueshenyuan on 12-12-8.
 //  Copyright (c) 2012年 fanzhi. All rights reserved.
 //
-#import "GlobalData.h"
 #import <QuartzCore/QuartzCore.h>
 #import "ListPageViewController1.h"
 #import "DetailViewController.h"
@@ -43,19 +42,19 @@
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
     self.navigationItem.title = @"Featured";
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
+    
+    _api = [[NetAPI alloc] init];
+    _api.delegate = self;
     _mainScrollView = [[[UIScrollView alloc] init] autorelease];
     _mainScrollView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     _mainView = [[[UIView alloc] init] autorelease];
     self.listArr = [[[NSMutableArray alloc] init] autorelease];
     
     int special_id = self.listID;
-    NSString *urlStr = [NSString stringWithFormat:@"%@interface.action?method=full.special.get&special_id=%d&layout_id=0&language=1&format=json",API_URL,special_id];
-    
-    NSURL *url = [NSURL URLWithString: urlStr];
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
-    request.delegate = self;
-    [request startAsynchronous];
-    LOADINGSHOW_MESSAGE(nil, DISMODELODING);
+    NSMutableDictionary *mdict = [NSMutableDictionary dictionary];
+    [mdict setValue:@"full.special.get" forKey:@"method"];
+    [mdict setValue:[NSString stringWithFormat:@"%d",special_id] forKey:@"special_id"];
+    [_api sendRequest:mdict];
     
     _topView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 300)] autorelease];
     _topView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
@@ -192,11 +191,8 @@
 }
 
 //获取数据成功
-- (void)requestFinished:(ASIHTTPRequest *)request
+- (void)requestDidFinished:(NSDictionary *)dict
 {
-    LOADINGDISMISS;
-    NSData *data = [[request responseString] dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary *dict = [data objectFromJSONData];
     NSString *banner = [[dict objectForKey:@"special"] objectForKey:@"banner"];
     NSArray *lists = [dict objectForKey:@"lists"];
     for (int i=0; i<lists.count; i++) {
@@ -234,6 +230,7 @@
 
 - (void) dealloc
 {
+    [_api release];
     [self.mainScrollView release];
     [self.mainView release];
     [self.topView release];

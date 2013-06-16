@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface FreeViewController : UIViewController
+#import "GlobalData.h"
+@interface FreeViewController : UIViewController<requestDelete>
+{
+    NetAPI *_api;
+}
 @property(nonatomic,retain) NSArray *dataList;
 @property(nonatomic,retain)UITableView *tabView;
 

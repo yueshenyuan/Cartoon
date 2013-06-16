@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "ASIHTTPRequest.h"
-
-@interface FeaturedViewController : UIViewController<UIPopoverControllerDelegate, UISplitViewControllerDelegate,UITableViewDataSource,UITableViewDelegate>
+#import "GlobalData.h"
+@interface FeaturedViewController : UIViewController<UIPopoverControllerDelegate, UISplitViewControllerDelegate,UITableViewDataSource,UITableViewDelegate,requestDelete>
 {
-
+    NetAPI *_api;
 }
 @property(nonatomic,retain) ASIHTTPRequest *request;
 @property(nonatomic,retain) UIScrollView *mainScrollView;

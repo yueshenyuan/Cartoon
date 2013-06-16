@@ -7,16 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GlobalData.h"
 #import "CoverFlowView.h"
 #import "DownLoadViewController.h"
-@interface DetailViewController : UIViewController<CoverFlowViewDelegate>
-
+@interface DetailViewController : UIViewController<CoverFlowViewDelegate,requestDelete>
+{
+    NetAPI *_api;
+}
 @property(nonatomic,retain) id delete;
 @property(nonatomic,copy) NSString *product_id;
 @property(nonatomic,retain) UIView *coverFlowView;
 @property(nonatomic,retain) NSMutableArray *imgArr;
 @property(nonatomic,copy) NSString *netWordType;
-
 
 @property(nonatomic,retain) IBOutlet UILabel *productNameLab;
 @property(nonatomic,retain) IBOutlet UILabel *comicNameLab;
