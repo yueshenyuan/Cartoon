@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface ShowDetailViewController : UIViewController<UIScrollViewDelegate>
+#import "BaseViewController.h"
+@interface ShowDetailViewController : BaseViewController<UIScrollViewDelegate>
 {
     NSArray *_imgsArr;
 }

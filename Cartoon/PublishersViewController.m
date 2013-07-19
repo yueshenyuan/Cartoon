@@ -26,10 +26,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     [[self.navigationController navigationBar] setBarStyle:UIBarStyleBlack];
     // Do any additional setup after loading the view from its nib.
-    self.navigationItem.title = @"PublishersViewController.m";
     
     UIScrollView *uv = [[[UIScrollView alloc] initWithFrame:CGRectMake(10, 10, 700, 800)] autorelease];
     uv.contentSize = CGSizeMake(800, 100);

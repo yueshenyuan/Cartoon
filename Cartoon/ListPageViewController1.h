@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GlobalData.h"
-@interface ListPageViewController1 : UIViewController<UITableViewDataSource,UITableViewDelegate,requestDelete>
+#import "BaseViewController.h"
+@interface ListPageViewController1 : BaseViewController<UITableViewDataSource,UITableViewDelegate,requestDelete>
 {
     NetAPI *_api;
 }

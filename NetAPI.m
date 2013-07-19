@@ -18,9 +18,9 @@
         self.request=nil;
     }
     self.request=[ASIFormDataRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",API_URL]]];
-    [self.request setPostValue:@"1" forKey:@"layout_id"];
+    [self.request setPostValue:@"0" forKey:@"layout_id"];
     [self.request setPostValue:@"1" forKey:@"language"];
-    [self.request setPostValue:@"1" forKey:@"publisher_id"];
+    [self.request setPostValue:@"1" forKey:@"app_id"];
     [self.request setPostValue:@"json" forKey:@"format"];
 }
 - (void)sendRequest:(NSMutableDictionary *)cmtData
@@ -44,6 +44,14 @@
     LOADINGDISMISS;
     NSString *respStr =[self.request responseString];
     NSDictionary *dict = [respStr objectFromJSONString];
+    NSDictionary *exception = [dict objectForKey:@"exception"];
+//    if (exception) {
+//        int code = [exception objectForKey:@"code"];
+//        NSString *sub_msg = [exception objectForKey:@"sub_msg"];
+//        SHOWALERT(sub_msg);
+//    }else{
+//        [self.delegate requestDidFinished:dict];
+//    }
     [self.delegate requestDidFinished:dict];
 }
 - (void)requestFailed:(ASIFormDataRequest *)request

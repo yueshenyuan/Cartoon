@@ -1,26 +1,21 @@
 //
-//  GlobalURL.h
+//  BaseViewController.h
 //  Cartoon
 //
-//  Created by yueshenyuan on 13-3-30.
+//  Created by yueshenyuan on 13-6-27.
 //  Copyright (c) 2013年 fanzhi. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "AppDelegate.h"
+#import <UIKit/UIKit.h>
 #import "NetAPI.h"
-
-#pragma mark coverflow详情页
-
-#pragma mark 下载页
-
-//下载
+#import "DownComicInfo.h"
+#import "GlobalMacros.h"
 
 extern Boolean isDownLoadStatus;
-@interface GlobalData : UIViewController
+@interface BaseViewController : UIViewController
 @property(nonatomic,assign) int curTimeVal;
 
-+ (GlobalData *) getGlobalData;
++ (BaseViewController *) getGlobalData;
 + (NSMutableArray *) getCurrentDownList;
 + (void) setCurrentDownList:(id)arr;
 + (void) removeCurrentDownList:(int)pid;

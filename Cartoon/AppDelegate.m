@@ -20,7 +20,6 @@
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
-    
     MainViewController *mvc = [[[MainViewController alloc] initWithNibName:@"MainViewController" bundle:nil] autorelease];
     
     UINavigationController *nvc = [[[UINavigationController alloc] initWithRootViewController:mvc] autorelease];

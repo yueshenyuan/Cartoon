@@ -11,5 +11,6 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
-    #import"GlobalData.h"
+    #import"GlobalMacros.h"
+    #import"BaseViewController.h"
 #endif

@@ -41,7 +41,6 @@
     // Do any additional setup after loading the view from its nib.
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
     self.navigationItem.title = @"Featured";
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     
     _api = [[NetAPI alloc] init];
     _api.delegate = self;

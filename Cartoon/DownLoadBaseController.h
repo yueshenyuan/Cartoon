@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "GlobalData.h"
 #import "asiHTTP/ASINetworkQueue.h"
 #import "asiHTTP/ASIHTTPRequest.h"
 #import <QuartzCore/QuartzCore.h>

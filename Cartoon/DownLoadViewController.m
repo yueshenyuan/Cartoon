@@ -43,7 +43,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
     self.navigationItem.title = @"下载管理";
     self.navigationController.navigationBarHidden = NO;
@@ -52,7 +51,7 @@
     
     self.downBase = [[[DownLoadBaseController alloc] init] autorelease];
     
-    NSMutableArray *currentDownList = [GlobalData getSaveLocalDownList];
+    NSMutableArray *currentDownList = [BaseViewController getSaveLocalDownList];
     int row = 0;
     for(int i=0;i<currentDownList.count;i++){
         if (i%4 == 0) {
@@ -167,7 +166,7 @@
     UIButton *downBtn = (UIButton *)sender;
     int pid = downBtn.superview.tag;
     DownComicInfo *downInfo = [[[DownComicInfo alloc] init] autorelease];
-    NSMutableArray *arr = [GlobalData getSaveLocalDownList];
+    NSMutableArray *arr = [BaseViewController getSaveLocalDownList];
     for (NSDictionary *dict in arr) {
         if ([[dict objectForKey:@"pid"] intValue] == pid) {
             if (!self.currentDownId && [[dict objectForKey:@"downStatus"] isEqualToString:@"down"]) {
@@ -175,7 +174,7 @@
                 downInfo.pid = [dict objectForKey:@"pid"];
                 downInfo.downList = [dict objectForKey:@"pages"];
                 downInfo.name = [dict objectForKey:@"title"];
-                [GlobalData setCurrentDownList:downInfo];
+                [BaseViewController setCurrentDownList:downInfo];
                 [self downLoadCartoon:downBtn.superview];
                 [downBtn setTitle:@"暂停" forState:UIControlStateNormal];
                 [downBtn addTarget:self action:@selector(downComicClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -218,7 +217,7 @@
     int index = downView.tag;
     self.currentDownId = index;
     [self setNetWorkQue];
-    NSArray *downInfoList = [GlobalData getCurrentDownList];
+    NSArray *downInfoList = [BaseViewController getCurrentDownList];
     for (int i=0; i<downInfoList.count; i++) {
         DownComicInfo *di =[downInfoList objectAtIndex:i];
         if ([di.pid intValue] == index) {
@@ -321,7 +320,7 @@ static int conlen = 0;
     
     ShowDetailViewController *sdvc = [[[ShowDetailViewController alloc] init] autorelease];
     NSMutableArray *imgsArr = [[[NSMutableArray alloc] init] autorelease];
-    NSMutableArray *currentDownList = [GlobalData getSaveLocalDownList];
+    NSMutableArray *currentDownList = [BaseViewController getSaveLocalDownList];
     for (int i=0; i<currentDownList.count; i++) {
         NSDictionary *browseComicDict = [currentDownList objectAtIndex:i];
         int pid = [[browseComicDict objectForKey:@"pid"] intValue];
@@ -371,7 +370,7 @@ static int conlen = 0;
     NSLog(@"全部下载完成");
     isDownLoadStatus = NO;
     //将刚刚下载的项目删除出下载队列
-    [GlobalData removeCurrentDownList:self.currentDownId];
+    [BaseViewController removeCurrentDownList:self.currentDownId];
     
     UIView *dView = nil;
     for (UIView *vw in self.view.subviews) {
@@ -387,7 +386,7 @@ static int conlen = 0;
 
             UIButton *showComic = (UIButton *)[dView viewWithTag:2];
             [showComic setTitle:@"阅读" forState:UIControlStateNormal];
-            NSMutableArray *userDefArr = [GlobalData getSaveLocalDownList];
+            NSMutableArray *userDefArr = [BaseViewController getSaveLocalDownList];
             for (int i=0;i<userDefArr.count;i++) {
                 NSMutableDictionary *muDict = (NSMutableDictionary *)userDefArr[i];
                 if ([[muDict objectForKey:@"pid"] intValue] == dView.tag) {
@@ -395,7 +394,7 @@ static int conlen = 0;
                     [muDict setObject:@"success" forKey:@"downStatus"];
                     
                     userDefArr[i] = muDict;
-                    [GlobalData setSaveLocalDownList:userDefArr];
+                    [BaseViewController setSaveLocalDownList:userDefArr];
                     
                 }
             }
@@ -403,7 +402,7 @@ static int conlen = 0;
     }
     self.currentDownId = nil;
     //如果下载队列中有等待下载项，则开始下载下一文件
-    NSMutableArray *currentList = [GlobalData getCurrentDownList];
+    NSMutableArray *currentList = [BaseViewController getCurrentDownList];
     if (currentList.count>0) {
         DownComicInfo *downInfo = [currentList objectAtIndex:currentList.count-1];
         for (UIView *view in self.view.subviews) {
@@ -418,7 +417,7 @@ static int conlen = 0;
 - (void)exitDownComic:(id)sender
 {
     NSArray *viewArr = self.view.subviews;
-    NSMutableArray *downListArr = [GlobalData getSaveLocalDownList];
+    NSMutableArray *downListArr = [BaseViewController getSaveLocalDownList];
     for (UIView *view in viewArr) {
         for (NSDictionary *dict in downListArr) {
             int tagId = view.tag;
@@ -462,16 +461,16 @@ static int conlen = 0;
         [self sequeItemViewLayout];
         
         //移除本地下载队列
-        [GlobalData removeCurrentDownList:pid];
+        [BaseViewController removeCurrentDownList:pid];
         //删除本地存储的下载信息
-        NSMutableArray *downListArr = [GlobalData getSaveLocalDownList];
+        NSMutableArray *downListArr = [BaseViewController getSaveLocalDownList];
         for (NSDictionary *dict in downListArr) {
             if ([[dict objectForKey:@"pid"] intValue] == pid) {
                 [downListArr removeObject:dict];
                 break;
             }
         }
-        [GlobalData setSaveLocalDownList:downListArr];
+        [BaseViewController setSaveLocalDownList:downListArr];
         //删除本地存储的下载进度信息
         [self.downBase removeProductDownProgress:pid];
         //删除本地已下载文件

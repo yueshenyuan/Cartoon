@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GlobalData.h"
-@interface PopularListController : UIViewController<UITableViewDataSource,UITableViewDelegate,requestDelete>
+#import "BaseViewController.h"
+@interface PopularListController : BaseViewController<UITableViewDataSource,UITableViewDelegate,requestDelete>
 {
     NetAPI *_api;
 }

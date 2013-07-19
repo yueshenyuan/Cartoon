@@ -16,6 +16,7 @@
 #import "LoadingViewController.h"
 #import "SettingView.h"
 #import <QuartzCore/QuartzCore.h>
+#import "WelcomeViewController.h"
 @interface FeaturedViewController ()
 
 @end
@@ -58,15 +59,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
 
     _api = [[NetAPI alloc] init];
     _api.delegate = self;
     
     NSLog(@"%@",[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]);
     //设置顶部导航栏
-    _segControl = [[[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"精选FEATURED",@"JUST ADDED",
-                                                                                @"受欢迎POPULAR",@"MARVEL",nil]] autorelease];
+    _segControl = [[[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"编辑推荐",@"最新上传",
+                                                                                @"热门流行",@"鼠绘专区",@"宅男腐女",nil]] autorelease];
     [_segControl setSegmentedControlStyle:UISegmentedControlStyleBar];
     _segControl.tintColor = [UIColor grayColor];
     _segControl.frame = CGRectMake((self.view.frame.size.width-500)/2, 5, 500, 35);
@@ -81,9 +81,9 @@
     self.tabView.dataSource = self;
     
     //添加导航控制器左右按钮
-    UIBarButtonItem *leftItem = [[[UIBarButtonItem alloc] initWithTitle:@"..." style:UIBarButtonSystemItemAction target:self action:@selector(openTool)] autorelease];
+    UIBarButtonItem *leftItem = [[[UIBarButtonItem alloc] initWithTitle:@"更多" style:UIBarButtonSystemItemAction target:self action:@selector(openTool)] autorelease];
     self.navigationItem.leftBarButtonItem = leftItem;
-    UIBarButtonItem *rightItem = [[[UIBarButtonItem alloc] initWithTitle:@"MY COMICS" style:UIBarButtonSystemItemAction target:self action:@selector(myComics)] autorelease];
+    UIBarButtonItem *rightItem = [[[UIBarButtonItem alloc] initWithTitle:@"我的书架" style:UIBarButtonSystemItemAction target:self action:@selector(myComics)] autorelease];
     self.navigationItem.rightBarButtonItem = rightItem;
     
     self.currentModule = 0;
@@ -195,6 +195,13 @@
 {
     if (self.currentModule == 0) {
         [self setModulePage0:dict];
+        
+        WelcomeViewController *wvc = [[WelcomeViewController alloc] init];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:wvc];
+        nav.modalPresentationStyle = UIModalPresentationFormSheet;
+        [self presentModalViewController:nav animated:YES];
+        [wvc release];
+        [nav release];
     }else if(self.currentModule == 1){
         self.dataList_M1 =  [dict objectForKey:@"products"];
         [self setModulePage1];
@@ -205,7 +212,7 @@
 #pragma mark   数据请求失败
 - (void)requestFailed:(ASIHTTPRequest *)request
 {
-    LOADINGDISMISS;
+//    LOADINGDISMISS;
     SHOWALERT(@"获取数据失败");
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -464,10 +471,20 @@
 }
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    //    if (interfaceOrientation==UIInterfaceOrientationPortrait || interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown)
-    //    {
-    //    }
-	return YES;
+    if (interfaceOrientation==UIInterfaceOrientationPortrait || interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown)
+    {
+        
+    }
+	return NO;
+}
+- (BOOL)shouldAutorotate
+{
+    return YES;
+}
+-(NSUInteger)supportedInterfaceOrientations{
+    
+    return UIInterfaceOrientationMaskPortraitUpsideDown;
+//    return UIInterfaceOrientationMaskLandscape; //UIInterfaceOrientationMaskLandscape、UIInterfaceOrientationMaskAll、 UIInterfaceOrientationMaskAllButUpsideDown
 }
 - (void)viewDidUnload
 {

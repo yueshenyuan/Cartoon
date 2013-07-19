@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface PublishersViewController : UIViewController
+#import "BaseViewController.h"
+@interface PublishersViewController : BaseViewController
 
 @end

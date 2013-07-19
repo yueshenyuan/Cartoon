@@ -7,8 +7,8 @@
 //
 
 #import "MainViewController.h"
-#import "FeaturedViewController.h"
 #import "PublishersViewController.h"
+#import "FeaturedViewController.h"
 #import "DownLoadViewController.h"
 #import "DetailViewController.h"
 #import "FreeViewController.h"
@@ -34,24 +34,24 @@
     UITabBarController *tabBarController = [[[UITabBarController alloc] init] autorelease];
     
     FeaturedViewController *fvc = [[[FeaturedViewController alloc] init] autorelease];
-    fvc.title = @"Featured";
     fvc.tabBarItem = [[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemFeatured tag:0] autorelease];
-    fvc.tabBarItem.title = @"精选";
+    fvc.tabBarItem.title = @"推荐";
+    fvc.tabBarItem.badgeValue = @"3";
     UINavigationController *fvcNav = [[[UINavigationController alloc] initWithRootViewController:fvc] autorelease];
     
     PublishersViewController *pvc = [[[PublishersViewController alloc] init] autorelease];
-    pvc.title = @"Publishers";
-    pvc.tabBarItem = [[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemContacts tag:1] autorelease];
+    pvc.title = @"搜索";
+    pvc.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"搜索" image:nil tag:1] autorelease];
+    [pvc.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"vimg.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"loading_bg1.png"]];
     UINavigationController *svcNav = [[[UINavigationController alloc] initWithRootViewController:pvc] autorelease];
     
     FreeViewController *freeVc= [[[FreeViewController alloc] init] autorelease];
-    freeVc.title = @"FREE";
+    freeVc.title = @"已购买";
     freeVc.tabBarItem = [[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMostRecent tag:2] autorelease];
     UINavigationController *freeNav = [[UINavigationController alloc] initWithRootViewController:freeVc];
     
     DownLoadViewController *dvc = [[[DownLoadViewController alloc] init] autorelease];
     dvc.title = @"下载管理";
-    dvc.view;
     dvc.tabBarItem = [[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemDownloads tag:3] autorelease];
     UINavigationController *dvcNav = [[[UINavigationController alloc] initWithRootViewController:dvc] autorelease];
 
@@ -60,8 +60,6 @@
     tabBarController.viewControllers = [[[NSArray alloc] initWithObjects:fvcNav,svcNav,freeNav,dvcNav, nil] autorelease];
     [self presentModalViewController:tabBarController animated:YES];
     
-    
-
 }
 
 - (void)viewDidUnload

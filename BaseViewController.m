@@ -1,22 +1,21 @@
 //
-//  GlobalURL.m
+//  BaseViewController.m
 //  Cartoon
 //
-//  Created by yueshenyuan on 13-3-30.
+//  Created by yueshenyuan on 13-6-27.
 //  Copyright (c) 2013年 fanzhi. All rights reserved.
 //
 
-#import "GlobalData.h"
-#import "DownComicInfo.h"
+#import "BaseViewController.h"
 
-@interface GlobalData()
+@interface BaseViewController ()
 
 @end
-static GlobalData *sharedObj = nil; //第一步：静态实例，并初始化。
+static BaseViewController *sharedObj = nil; //第一步：静态实例，并初始化。
 static NSMutableArray *CurrentDownList;
 static NSString *isDownLoad;
 Boolean isDownLoadStatus = NO;
-@implementation GlobalData
+@implementation BaseViewController
 @synthesize curTimeVal = _curTimeVal;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,12 +25,14 @@ Boolean isDownLoadStatus = NO;
     }
     return self;
 }
-- (void) viewDidLoad
+- (void)viewDidLoad
 {
     [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
+    self.navigationItem.title = @"tesltkj";
 }
-+ (GlobalData *) getGlobalData
++ (BaseViewController *) getGlobalData
 {
     @synchronized (self)
     {
@@ -42,51 +43,6 @@ Boolean isDownLoadStatus = NO;
     }
     return sharedObj;
 }
-
-+ (id) allocWithZone:(NSZone *)zone //第三步：重写allocWithZone方法
-{
-    @synchronized (self) {
-        if (sharedObj == nil) {
-            sharedObj = [super allocWithZone:zone];
-            return sharedObj;
-        }
-    }
-    return nil;
-}
-
-- (id) copyWithZone:(NSZone *)zone //第四步
-{
-    return self;
-}
-
-- (id) retain
-{
-    return self;
-}
-
-- (unsigned) retainCount
-{
-    return UINT_MAX;
-}
-
-- (oneway void) release
-{
-    
-}
-
-- (id) autorelease
-{
-    return self;
-}
-
-- (id)init
-{
-    @synchronized(self) {
-        [super init];//往往放一些要初始化的变量.
-        return self;
-    }
-}
-
 
 + (NSMutableArray *) getCurrentDownList
 {
@@ -148,4 +104,12 @@ Boolean isDownLoadStatus = NO;
     NSString *path = [[pathArr objectAtIndex:0] stringByAppendingPathComponent:@"downList.txt"];
     [arr writeToFile:path atomically:YES];
 }
+
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 @end

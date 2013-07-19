@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "ASIHTTPRequest.h"
-#import "GlobalData.h"
-@interface FeaturedViewController : UIViewController<UIPopoverControllerDelegate, UISplitViewControllerDelegate,UITableViewDataSource,UITableViewDelegate,requestDelete>
+#import "BaseViewController.h"
+@interface FeaturedViewController : BaseViewController <UIPopoverControllerDelegate, UISplitViewControllerDelegate,UITableViewDataSource,UITableViewDelegate,requestDelete>
 {
     NetAPI *_api;
 }

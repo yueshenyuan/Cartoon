@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "DownLoadBaseController.h"
-
-@interface DownLoadViewController : UIViewController<ASIProgressDelegate>
+#import "BaseViewController.h"
+@interface DownLoadViewController : BaseViewController<ASIProgressDelegate>
 {
     NSMutableArray *_imgArr;
     NSString *_downPath;

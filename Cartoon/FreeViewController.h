@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GlobalData.h"
-@interface FreeViewController : UIViewController<requestDelete>
+#import "BaseViewController.h"
+@interface FreeViewController : BaseViewController<requestDelete>
 {
     NetAPI *_api;
 }

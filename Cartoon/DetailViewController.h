@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GlobalData.h"
+#import "BaseViewController.h"
 #import "CoverFlowView.h"
 #import "DownLoadViewController.h"
-@interface DetailViewController : UIViewController<CoverFlowViewDelegate,requestDelete>
+@interface DetailViewController : BaseViewController<CoverFlowViewDelegate,requestDelete>
 {
     NetAPI *_api;
 }

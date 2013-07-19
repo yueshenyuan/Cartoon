@@ -44,14 +44,13 @@
     // Do any additional setup after loading the view from its nib.
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
     self.navigationItem.title = @"商品详情";
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     
     _api = [[NetAPI alloc] init];
     _api.delegate = self;
 
     self.netWordType = @"detail";
     NSMutableDictionary *mdict = [NSMutableDictionary dictionary];
-    [mdict setObject:@"full.product.get" forKey:@"method"];
+    [mdict setValue:@"full.product.get" forKey:@"method"];
     [mdict setValue:self.product_id forKey:@"product_id"];
     [_api sendRequest:mdict];
     
@@ -67,6 +66,7 @@
     NSMutableDictionary *mdict = [NSMutableDictionary dictionary];
     [mdict setValue:@"full.product.get" forKey:@"method"];
     [mdict setValue:pid forKey:@"product_id"];
+    [_api sendRequest:mdict];
 }
 //获取数据成功
 - (void)requestDidFinished:(NSDictionary *)dict
@@ -139,7 +139,7 @@
         downInfo.name = title;
         downInfo.icon = cover;
         downInfo.downList = pages;
-        [GlobalData setCurrentDownList:downInfo];
+        [BaseViewController setCurrentDownList:downInfo];
         //判断当前是否正在下载状态，如下载中，则不立即进行下载。
         //将所有下载项存入磁盘
         NSArray *pathArr = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -163,7 +163,7 @@
 //获取数据失败
 - (void)requestFailed:(ASIHTTPRequest *)request
 {
-    LOADINGDISMISS;
+//    LOADINGDISMISS;
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"获取数据失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
     [alert show];
 }
@@ -186,7 +186,7 @@
 - (Boolean)isDownExistence:(NSString *)pid
 {
     Boolean *b = YES;
-    NSMutableArray *arr = [GlobalData getSaveLocalDownList];
+    NSMutableArray *arr = [BaseViewController getSaveLocalDownList];
     //检查将要下载的商品是否已被下载或正在下载中
     for (NSDictionary *pDict in arr) {
         if ([pid intValue] == [[pDict objectForKey:@"pid"] intValue]) {
