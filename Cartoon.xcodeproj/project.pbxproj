@@ -92,6 +92,10 @@
 		58F4D0C616ECD1950044334A /* ProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F4D0C516ECD1950044334A /* ProgressIndicator.m */; };
 		58F5F45E1806E58A00176957 /* BookshelfIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F5F45C1806E58A00176957 /* BookshelfIndexViewController.m */; };
 		58F5F45F1806E58A00176957 /* BookshelfIndexViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58F5F45D1806E58A00176957 /* BookshelfIndexViewController.xib */; };
+<<<<<<< HEAD
+=======
+		EB8FF6CA1839FE23001F7845 /* UIView+BFExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8FF6C91839FE23001F7845 /* UIView+BFExtension.m */; };
+>>>>>>> 8231f451831a9eb694ecf29ae35d7c1c10ac4c0e
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -233,6 +237,11 @@
 		58F5F45B1806E58A00176957 /* BookshelfIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookshelfIndexViewController.h; sourceTree = "<group>"; };
 		58F5F45C1806E58A00176957 /* BookshelfIndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookshelfIndexViewController.m; sourceTree = "<group>"; };
 		58F5F45D1806E58A00176957 /* BookshelfIndexViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookshelfIndexViewController.xib; sourceTree = "<group>"; };
+<<<<<<< HEAD
+=======
+		EB8FF6C81839FE23001F7845 /* UIView+BFExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+BFExtension.h"; sourceTree = "<group>"; };
+		EB8FF6C91839FE23001F7845 /* UIView+BFExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+BFExtension.m"; sourceTree = "<group>"; };
+>>>>>>> 8231f451831a9eb694ecf29ae35d7c1c10ac4c0e
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -538,6 +547,11 @@
 		586E9CD4179A4CF500EF3BD0 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
+=======
+				EB8FF6C81839FE23001F7845 /* UIView+BFExtension.h */,
+				EB8FF6C91839FE23001F7845 /* UIView+BFExtension.m */,
+>>>>>>> 8231f451831a9eb694ecf29ae35d7c1c10ac4c0e
 				586E9D03179ADC4500EF3BD0 /* UINavigationController+Header.h */,
 				586E9D04179ADC4500EF3BD0 /* UINavigationController+Header.m */,
 			);
@@ -702,6 +716,11 @@
 			attributes = {
 				LastUpgradeCheck = 0440;
 				ORGANIZATIONNAME = fanzhi;
+				TargetAttributes = {
+					581A9B39166E2AFF0092F954 = {
+						DevelopmentTeam = QD66J8ZQVH;
+					};
+				};
 			};
 			buildConfigurationList = 581A9B34166E2AFF0092F954 /* Build configuration list for PBXProject "Cartoon" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -797,6 +816,7 @@
 				5851A183170B190000A0A932 /* LoadingViewController.m in Sources */,
 				5851A187170B193D00A0A932 /* hitView.m in Sources */,
 				5851A192170DD6AA00A0A932 /* DownComicInfo.m in Sources */,
+				EB8FF6CA1839FE23001F7845 /* UIView+BFExtension.m in Sources */,
 				58965337171E545A001EADF5 /* PopularListController.m in Sources */,
 				5896533C171E778A001EADF5 /* myCell.m in Sources */,
 				58702193172FC944005A14C6 /* SettingView.m in Sources */,
@@ -887,14 +907,16 @@
 		581A9B53166E2AFF0092F954 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: shenyuan yue (EDYHW49JYA)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: wei li (TPC7UGW3N3)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: wei li (TPC7UGW3N3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Cartoon/Cartoon-Prefix.pch";
 				INFOPLIST_FILE = "Cartoon/Cartoon-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5871F64B-B10D-4DE8-AEE6-00AFABDBFFEB";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8673AB7C-46A3-4527-BB76-2261DCE5650B";
+				PROVISIONING_PROFILE = "9C714160-E0A0-4ABA-8641-2658B5CFEC18";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9C714160-E0A0-4ABA-8641-2658B5CFEC18";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -902,14 +924,16 @@
 		581A9B54166E2AFF0092F954 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: shenyuan yue (EDYHW49JYA)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: wei li (TPC7UGW3N3)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: wei li (TPC7UGW3N3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Cartoon/Cartoon-Prefix.pch";
 				INFOPLIST_FILE = "Cartoon/Cartoon-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5871F64B-B10D-4DE8-AEE6-00AFABDBFFEB";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8673AB7C-46A3-4527-BB76-2261DCE5650B";
+				PROVISIONING_PROFILE = "9C714160-E0A0-4ABA-8641-2658B5CFEC18";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9C714160-E0A0-4ABA-8641-2658B5CFEC18";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

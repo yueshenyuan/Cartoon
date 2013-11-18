@@ -66,12 +66,17 @@
     NSMutableDictionary *mdict = [NSMutableDictionary dictionary];
     [mdict setValue:@"full.product.get" forKey:@"method"];
     [mdict setValue:pid forKey:@"product_id"];
-//    [_api sendRequest:mdict];
-    [_api grabURLInBackground:[NSString stringWithFormat:@"method=full.product.get&product_id=%@",pid]];
+//    NSString *s = [NSString stringWithFormat:@"%@",pid];
+//    [_api grabURLInBackground:s];
+    [_api sendRequest:mdict];
 }
 //获取数据成功
 - (void)requestDidFinished:(NSDictionary *)dict
 {
+    if (dict.count == 0) {
+        SHOWALERT(@"未查询到漫画详细信息");
+        return;
+    }
     if ([self.netWordType isEqualToString:@"detail"]) {
         self.imgArr = [dict objectForKey:@"all_products"];
         
@@ -154,7 +159,6 @@
             downListArr = [NSMutableArray arrayWithObjects:saveHistoryDcit, nil];
         }
         [downListArr writeToFile:path atomically:YES];
-        
         //通过广播通知下载页进行下载操作
         NSDictionary *downInfoDict = [NSDictionary dictionaryWithObject:downInfo forKey:@"downInfo"];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"button1" object:downInfoDict];//注意object属性

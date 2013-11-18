@@ -7,7 +7,11 @@
 //
 
 #import "BaseViewController.h"
+#import "NetAPI.h"
+@interface SearchViewController : BaseViewController<UISearchBarDelegate,requestDelete>
+{
+    NetAPI *_api;
+}
 
-@interface SearchViewController : BaseViewController<UISearchBarDelegate>
-
+@property(nonatomic,retain) UISearchBar *searchBar;
 @end

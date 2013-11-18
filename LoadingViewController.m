@@ -78,6 +78,7 @@
     // 计数器加1
     _loadingCount++;
     if(_loadingCount > 1) {
+        _loadingCount--;
         return;
     }
     

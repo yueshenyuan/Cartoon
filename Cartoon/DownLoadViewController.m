@@ -47,6 +47,7 @@
     self.navigationController.navigationBarHidden = NO;
     UIBarButtonItem *exitBtn = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(exitDownComic:)];
     self.navigationItem.rightBarButtonItem = exitBtn;
+    self.navigationItem.leftBarButtonItem = nil;
     
     self.downBase = [[[DownLoadBaseController alloc] init] autorelease];
     
@@ -150,7 +151,7 @@
     [itemView addSubview:deleBtn];
     [itemView addSubview:stopDown];
     [self.view addSubview:itemView];
-    
+    NSLog(@"--------------3----------------");
     if (!isDownLoadStatus) {
         isDownLoadStatus = YES;
         self.alreadyDown = 0.00;
@@ -274,7 +275,6 @@ static int conlen = 0;
     int pid = request.tag;
     self.alreadyDown += request.contentLength/1024.0/1024.0;
     conlen += request.contentLength;
-    NSLog(@"contentLength = %d ",conlen);
     //队列文件总大小
     float totalSize = [self.downBase getProductDownTotalSize:pid];
     if (totalSize < 0.0) {
@@ -381,32 +381,41 @@ static int conlen = 0;
         }
     }
     
+    //如果右上角还没有设置编辑按钮 则进行设置
+    if (self.navigationItem.rightBarButtonItem == nil) {
+        UIBarButtonItem *exitBtn = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(exitDownComic:)];
+        self.navigationItem.rightBarButtonItem = exitBtn;
+    }
 }
 #pragma mark 编辑下载项
 - (void)exitDownComic:(id)sender
 {
     NSArray *viewArr = self.view.subviews;
     NSMutableArray *downListArr = [BaseViewController getSaveLocalDownList];
-    for (UIView *view in viewArr) {
-        for (NSDictionary *dict in downListArr) {
-            int tagId = view.tag;
-            int pid = [[dict objectForKey:@"pid"] intValue];
-            if (pid == tagId) {
-                UIButton *deleBtn = (UIButton *)[view viewWithTag:1];
-                if (!self.exitStatus) {
-                    deleBtn.hidden = NO;
-                }else{
-                    deleBtn.hidden = YES;
+    if (!downListArr || downListArr.count == 0) {
+        SHOWALERT(@"没有可编辑的漫画");
+    }else{
+        for (UIView *view in viewArr) {
+            for (NSDictionary *dict in downListArr) {
+                int tagId = view.tag;
+                int pid = [[dict objectForKey:@"pid"] intValue];
+                if (pid == tagId) {
+                    UIButton *deleBtn = (UIButton *)[view viewWithTag:1];
+                    if (!self.exitStatus) {
+                        deleBtn.hidden = NO;
+                    }else{
+                        deleBtn.hidden = YES;
+                    }
                 }
             }
         }
-    }
-    if (!self.exitStatus) {
-        self.exitStatus = YES;
-        self.navigationItem.rightBarButtonItem.title = @"完成";
-    }else{
-        self.exitStatus = NO;
-        self.navigationItem.rightBarButtonItem.title = @"编辑";
+        if (!self.exitStatus) {
+            self.exitStatus = YES;
+            self.navigationItem.rightBarButtonItem.title = @"完成";
+        }else{
+            self.exitStatus = NO;
+            self.navigationItem.rightBarButtonItem.title = @"编辑";
+        }
     }
 }
 #pragma mark 删除下载项
@@ -415,7 +424,7 @@ static int conlen = 0;
     //删除页面View
     UIButton *deleBtn = (UIButton *)sender;
     int pid = deleBtn.superview.tag;
-    NSLog(@"将要删除漫画：%d",pid);
+//    NSLog(@"将要删除漫画：%d",pid);
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确定要删除该漫画？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
     alert.tag = pid;
     [alert show];
@@ -458,6 +467,11 @@ static int conlen = 0;
         [userDef removeObjectForKey:[NSString stringWithFormat:@"%d",pid]];
         if (isDeleted) {
             NSLog(@"删除成功");
+            downListArr = [BaseViewController getSaveLocalDownList];
+            if (downListArr.count == 0) {
+                self.exitStatus = NO;
+                self.navigationItem.rightBarButtonItem.title = @"编辑";
+            }
         }
     }
 }

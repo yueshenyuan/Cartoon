@@ -19,6 +19,8 @@ UIAlertView *alert1 = [[[UIAlertView alloc] initWithTitle:@"提示" message:m de
 }
 //设置颜色
 #define RGBCOLOR(r,g,b,_alpha) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:_alpha]
+//系统版本是否为IOS 7
+#define VERSION7 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0 ? YES : NO)
 
 @interface GlobalMacros : NSObject
 

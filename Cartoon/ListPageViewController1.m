@@ -180,7 +180,11 @@
     }else{
         NSArray *comicsArr = [[self.listArr objectAtIndex:section] objectForKey:@"comics"];
         NSDictionary *lobj = [comicsArr objectAtIndex:row*2];
+<<<<<<< HEAD
         int lcid = [[lobj objectForKey:@"id"] intValue];
+=======
+//        int lcid = [[lobj objectForKey:@"id"] intValue];
+>>>>>>> 8231f451831a9eb694ecf29ae35d7c1c10ac4c0e
         int lproduct_count = [lobj objectForKey:@"product_count"];
         NSString *ltitle = [lobj objectForKey:@"title"];
         NSString *lcover = [lobj objectForKey:@"cover"];
@@ -193,7 +197,11 @@
         llab2.text = [NSString stringWithFormat:@"%d",lproduct_count];
         if (comicsArr.count > (row*2+1)) {
             NSDictionary *robj = [comicsArr objectAtIndex:0];
+<<<<<<< HEAD
             int rcid = [[robj objectForKey:@"id"] intValue];
+=======
+//            int rcid = [[robj objectForKey:@"id"] intValue];
+>>>>>>> 8231f451831a9eb694ecf29ae35d7c1c10ac4c0e
             int rproduct_count = [robj objectForKey:@"product_count"];
             NSString *rtitle = [robj objectForKey:@"title"];
             NSString *rcover = [robj objectForKey:@"cover"];

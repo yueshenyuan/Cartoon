@@ -32,7 +32,7 @@
         [self.request setPostValue:[cmtData objectForKey:key] forKey:key];
        dataStr = [dataStr stringByAppendingString:[NSString stringWithFormat:@"%@=%@&",key,[cmtData objectForKey:key]]];
     }
-    NSLog(@"请求地址 =======》 %@",dataStr);
+//    NSLog(@"请求地址 =======》 %@",dataStr);
     self.request.delegate = self;
     [self.request startAsynchronous];
     self.request.didFinishSelector = @selector(requestFinished1:);
@@ -44,11 +44,11 @@
 {
     LOADINGDISMISS;
     NSString *respStr =[self.request responseString];
-    NSLog(@"请求结果 ======》%@",respStr);
+//    NSLog(@"请求结果 ======》%@",respStr);
     NSDictionary *dict = [respStr objectFromJSONString];
     NSDictionary *exception = [dict objectForKey:@"exception"];
     if (exception) {
-        int code = [exception objectForKey:@"code"];
+//        int code = [exception objectForKey:@"code"];
         NSString *sub_msg = [exception objectForKey:@"sub_msg"];
         SHOWALERT(sub_msg);
     }else{
@@ -66,8 +66,8 @@
 -(void)grabURLInBackground:(NSString *)data
 {
     LOADINGSHOW_MESSAGE(nil, MODELODING);
-//    NSLog(@"========>%@",data);
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@&layout_id=0&language=1&app_id=1&format=json",API_URL,data]];
+    [self baseInfoRequest];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?product_id=%@&method=full.product.get&layout_id=0&language=1&app_id=1&format=json",API_URL,data]];
     ASIHTTPRequest *request1 = [ASIHTTPRequest requestWithURL:url];
     [request1 setDelegate:self];
     [request1 startAsynchronous];

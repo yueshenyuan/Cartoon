@@ -255,7 +255,7 @@
     int row = indexPath.row;
     if (self.currentModule == 1) {
         int lpid = [[self.dataList_M1 objectAtIndex:row*2] objectForKey:@"id"];
-        NSString *lname = [[self.dataList_M1 objectAtIndex:row*2] objectForKey:@"name"];
+//        NSString *lname = [[self.dataList_M1 objectAtIndex:row*2] objectForKey:@"name"];
         NSString *lcomic_name = [[self.dataList_M1 objectAtIndex:row*2] objectForKey:@"comic_name"];
         NSString *lintro = [[self.dataList_M1 objectAtIndex:row*2] objectForKey:@"intro"];
         NSString *lcover = [[self.dataList_M1 objectAtIndex:row*2] objectForKey:@"cover"];
@@ -269,7 +269,7 @@
         
         if (self.dataList_M1.count > ((row*2)+1)) {
             int rpid = [[self.dataList_M1 objectAtIndex:(row*2)+1] objectForKey:@"id"];
-            NSString *rname = [[self.dataList_M1 objectAtIndex:(row*2)+1] objectForKey:@"name"];
+//            NSString *rname = [[self.dataList_M1 objectAtIndex:(row*2)+1] objectForKey:@"name"];
             NSString *rcomic_name = [[self.dataList_M1 objectAtIndex:(row*2)+1] objectForKey:@"comic_name"];
             NSString *rintro = [[self.dataList_M1 objectAtIndex:(row*2)+1] objectForKey:@"intro"];
             NSString *rcover = [[self.dataList_M1 objectAtIndex:(row*2)+1] objectForKey:@"cover"];
