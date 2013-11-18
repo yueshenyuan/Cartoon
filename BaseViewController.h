@@ -10,6 +10,7 @@
 #import "NetAPI.h"
 #import "DownComicInfo.h"
 #import "GlobalMacros.h"
+#import "UIView+BFExtension.h"
 extern Boolean isDownLoadStatus;
 @interface BaseViewController : UIViewController
 @property(nonatomic,assign) int curTimeVal;
@@ -18,7 +19,6 @@ extern Boolean isDownLoadStatus;
 + (NSMutableArray *) getCurrentDownList;
 + (void) setCurrentDownList:(id)arr;
 + (void) removeCurrentDownList:(int)pid;
-+ (NSString *) getDownLoadStatus;
 + (void) setDownLoadStatus:(Boolean)b;
 + (Boolean) viewExists:(UIView *)mView tag:(int)tag;
 + (NSMutableArray *) getSaveLocalDownList;

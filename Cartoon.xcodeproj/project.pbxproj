@@ -92,7 +92,7 @@
 		58F4D0C616ECD1950044334A /* ProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F4D0C516ECD1950044334A /* ProgressIndicator.m */; };
 		58F5F45E1806E58A00176957 /* BookshelfIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F5F45C1806E58A00176957 /* BookshelfIndexViewController.m */; };
 		58F5F45F1806E58A00176957 /* BookshelfIndexViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58F5F45D1806E58A00176957 /* BookshelfIndexViewController.xib */; };
-		EB8FF6C71839DD03001F7845 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB8FF6C61839DD03001F7845 /* Default-568h@2x.png */; };
+		EB8FF6CA1839FE23001F7845 /* UIView+BFExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8FF6C91839FE23001F7845 /* UIView+BFExtension.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -234,7 +234,8 @@
 		58F5F45B1806E58A00176957 /* BookshelfIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookshelfIndexViewController.h; sourceTree = "<group>"; };
 		58F5F45C1806E58A00176957 /* BookshelfIndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookshelfIndexViewController.m; sourceTree = "<group>"; };
 		58F5F45D1806E58A00176957 /* BookshelfIndexViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookshelfIndexViewController.xib; sourceTree = "<group>"; };
-		EB8FF6C61839DD03001F7845 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		EB8FF6C81839FE23001F7845 /* UIView+BFExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+BFExtension.h"; sourceTree = "<group>"; };
+		EB8FF6C91839FE23001F7845 /* UIView+BFExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+BFExtension.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -281,7 +282,6 @@
 		581A9B2F166E2AFF0092F954 = {
 			isa = PBXGroup;
 			children = (
-				EB8FF6C61839DD03001F7845 /* Default-568h@2x.png */,
 				586E9CD4179A4CF500EF3BD0 /* Category */,
 				586E9CD3179A4C4F00EF3BD0 /* 第三方 */,
 				5893562717048A1F0092C0ED /* 公用 */,
@@ -541,6 +541,8 @@
 		586E9CD4179A4CF500EF3BD0 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				EB8FF6C81839FE23001F7845 /* UIView+BFExtension.h */,
+				EB8FF6C91839FE23001F7845 /* UIView+BFExtension.m */,
 				586E9D03179ADC4500EF3BD0 /* UINavigationController+Header.h */,
 				586E9D04179ADC4500EF3BD0 /* UINavigationController+Header.m */,
 			);
@@ -746,7 +748,6 @@
 				58965339171E7205001EADF5 /* FeatureCell_M1.xib in Resources */,
 				5892A66217355329006B3D33 /* DetailViewController.xib in Resources */,
 				589A051E1750A29E001FBDF0 /* vimg.png in Resources */,
-				EB8FF6C71839DD03001F7845 /* Default-568h@2x.png in Resources */,
 				58125797177BEC0D007623F7 /* BaseViewController.xib in Resources */,
 				580F5AB01792DFE700724F00 /* WelcomeViewController.xib in Resources */,
 				580F5AB51792F34600724F00 /* RecoveryViewController.xib in Resources */,
@@ -806,6 +807,7 @@
 				5851A183170B190000A0A932 /* LoadingViewController.m in Sources */,
 				5851A187170B193D00A0A932 /* hitView.m in Sources */,
 				5851A192170DD6AA00A0A932 /* DownComicInfo.m in Sources */,
+				EB8FF6CA1839FE23001F7845 /* UIView+BFExtension.m in Sources */,
 				58965337171E545A001EADF5 /* PopularListController.m in Sources */,
 				5896533C171E778A001EADF5 /* myCell.m in Sources */,
 				58702193172FC944005A14C6 /* SettingView.m in Sources */,

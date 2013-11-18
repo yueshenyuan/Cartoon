@@ -29,9 +29,8 @@
     // Do any additional setup after loading the view from its nib.
     self.navigationItem.title = @"我的书架";
     self.navigationItem.rightBarButtonItem=nil;
-    UIBarButtonItem *leftItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarStyleBlack target:self action:@selector(a:)] autorelease];
-    leftItem.title = @"返回";
-    self.navigationItem.leftBarButtonItem = leftItem;
+    UIBarButtonItem *l = [[[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarStyleBlack target:self action:@selector(backPrevPage)] autorelease];
+    self.navigationItem.leftBarButtonItem = l;
     
     
     [self setupController];
@@ -44,6 +43,10 @@
         if (![downStatus isEqualToString:@"success"]) {
             [currentDownList removeObject:d];
         }
+    }
+    if (currentDownList.count == 0) {
+        SHOWALERT(@"您书架中还没有漫画");
+        return;
     }
     int row = 0;
     for(int i=0;i<currentDownList.count;i++){
@@ -93,6 +96,11 @@
             [self.view addSubview:itemView];
         }
     }
+}
+#pragma mark 返回上一页
+- (void) backPrevPage
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)didReceiveMemoryWarning
 {

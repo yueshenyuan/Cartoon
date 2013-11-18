@@ -96,7 +96,7 @@
     }
     int row = indexPath.row;
     int lpid = [[self.dataList objectAtIndex:row*2] objectForKey:@"id"];
-    NSString *lname = [[self.dataList objectAtIndex:row*2] objectForKey:@"name"];
+//    NSString *lname = [[self.dataList objectAtIndex:row*2] objectForKey:@"name"];
     NSString *lcomic_name = [[self.dataList objectAtIndex:row*2] objectForKey:@"comic_name"];
     NSString *lintro = [[self.dataList objectAtIndex:row*2] objectForKey:@"intro"];
     NSString *lcover = [[self.dataList objectAtIndex:row*2] objectForKey:@"cover"];
@@ -110,7 +110,7 @@
     
     if (self.dataList.count > ((row*2)+1)) {
         int rpid = [[self.dataList objectAtIndex:(row*2)+1] objectForKey:@"id"];
-        NSString *rname = [[self.dataList objectAtIndex:(row*2)+1] objectForKey:@"name"];
+//        NSString *rname = [[self.dataList objectAtIndex:(row*2)+1] objectForKey:@"name"];
         NSString *rcomic_name = [[self.dataList objectAtIndex:(row*2)+1] objectForKey:@"comic_name"];
         NSString *rintro = [[self.dataList objectAtIndex:(row*2)+1] objectForKey:@"intro"];
         NSString *rcover = [[self.dataList objectAtIndex:(row*2)+1] objectForKey:@"cover"];
