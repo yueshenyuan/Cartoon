@@ -43,7 +43,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
     self.navigationItem.title = @"下载管理";
     self.navigationController.navigationBarHidden = NO;
     UIBarButtonItem *exitBtn = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(exitDownComic:)];
@@ -279,7 +278,6 @@ static int conlen = 0;
     //队列文件总大小
     float totalSize = [self.downBase getProductDownTotalSize:pid];
     if (totalSize < 0.0) {
-        NSLog(@"totalBytesToDownload = %f",self.netWorkQueue.totalBytesToDownload);
         totalSize = self.netWorkQueue.totalBytesToDownload/1024.0/1024.0;
     }
     
@@ -311,36 +309,7 @@ static int conlen = 0;
 {
     NSLog(@"%@",theError);
 }
-#pragma mark  浏览漫画
-- (void) showDetailComic:(id)clickPid{
-    
-    int tapPid = 0;
-    UIButton *btn = (UIButton *)clickPid;
-    tapPid = btn.superview.tag;
-    
-    ShowDetailViewController *sdvc = [[[ShowDetailViewController alloc] init] autorelease];
-    NSMutableArray *imgsArr = [[[NSMutableArray alloc] init] autorelease];
-    NSMutableArray *currentDownList = [BaseViewController getSaveLocalDownList];
-    for (int i=0; i<currentDownList.count; i++) {
-        NSDictionary *browseComicDict = [currentDownList objectAtIndex:i];
-        int pid = [[browseComicDict objectForKey:@"pid"] intValue];
-        
-        if (pid == tapPid) {
-            NSArray *pages = [browseComicDict objectForKey:@"pages"];
-            for (id page in pages) {
-                NSString *img = [page objectForKey:@"img"];
-                NSString *str_intercepted = [img substringFromIndex:46];
-                NSString *str_character = @"/";
-                NSRange range = [str_intercepted rangeOfString:str_character];
-                NSString *str_complete = [str_intercepted substringToIndex:range.location];
-                NSString *imgPath = [NSString stringWithFormat:@"%d/%@",pid,str_intercepted.lastPathComponent];
-                [imgsArr addObject:imgPath];
-            }
-        }
-    }
-    sdvc.imgsArr = imgsArr;
-    [self.navigationController pushViewController:sdvc animated:YES];
-}
+
 
 
 //设置下载队列

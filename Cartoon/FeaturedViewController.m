@@ -33,7 +33,7 @@
 @synthesize featuredSubModule2 = _featuredSubModule2;
 @synthesize tabView = _tabView;
 
-@synthesize dataList_M1 = _dataList_M1;
+@synthesize dataList_M1 = _dataList_M1, dataList_M2 = _dataList_M2;
 @synthesize leftView_M1 = _leftView_M1, leftImgView_M1 = _leftImgView_M1, leftLab1_M1 = _leftLab1_M1;
 @synthesize leftLab2_M1 = _leftLab2_M1;
 @synthesize rightView_M1 = _rightView_M1, rightImgView_M1 = _rightImgView_M1, rightLab1_M1 = _rightLab1_M1;
@@ -58,18 +58,17 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
-
+//    self.navigationItem.title = @"首页";
     _api = [[NetAPI alloc] init];
     _api.delegate = self;
     
     NSLog(@"%@",[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]);
     //设置顶部导航栏
-    _segControl = [[[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"编辑推荐",@"最新上传",
-                                                                                @"热门流行",@"鼠绘专区",@"宅男腐女",nil]] autorelease];
+    _segControl = [[[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"推荐",@"最新更新",
+                                                                                @"热门",nil]] autorelease];
     [_segControl setSegmentedControlStyle:UISegmentedControlStyleBar];
     _segControl.tintColor = [UIColor grayColor];
-    _segControl.frame = CGRectMake((self.view.frame.size.width-500)/2, 5, 500, 35);
+    _segControl.frame = CGRectMake((self.view.frame.size.width-300)/2, 5, 300, 35);
     _segIndex = 0;
     _segControl.selectedSegmentIndex = 0;
     [_segControl addTarget:self action:@selector(clickSeg:) forControlEvents:UIControlEventValueChanged];
@@ -83,8 +82,6 @@
     //添加导航控制器左右按钮
     UIBarButtonItem *leftItem = [[[UIBarButtonItem alloc] initWithTitle:@"更多" style:UIBarButtonSystemItemAction target:self action:@selector(openTool)] autorelease];
     self.navigationItem.leftBarButtonItem = leftItem;
-    UIBarButtonItem *rightItem = [[[UIBarButtonItem alloc] initWithTitle:@"我的书架" style:UIBarButtonSystemItemAction target:self action:@selector(myComics)] autorelease];
-    self.navigationItem.rightBarButtonItem = rightItem;
     
     self.currentModule = 0;
     //创建子栏目对应的UIView
@@ -118,9 +115,16 @@
 - (void) getModuleData2
 {
     NSMutableDictionary *cmtData = [NSMutableDictionary dictionary];
-    [cmtData setObject:@"full.popular.products.get" forKey:@"method"];
+    [cmtData setObject:@"full.new.get" forKey:@"method"];
+    [_api sendRequest:cmtData];
 }
-
+#pragma mark 获取第三个栏目的数据
+- (void) getModuleData3
+{
+    NSMutableDictionary *cmtData = [NSMutableDictionary dictionary];
+    [cmtData setObject:@"full.popular.products.get" forKey:@"method"];
+    [_api sendRequest:cmtData];
+}
 //点击UISegmentedControl 触发事件
 - (void)clickSeg:(UISegmentedControl *)seg
 {
@@ -131,13 +135,18 @@
             [self.featuredSubModule0 setHidden:NO];
             [self.featuredSubModule1 setHidden:YES];
             [self.featuredSubModule2 setHidden:YES];
+            if (self.featuredSubModule0.subviews.count <= 0) {
+                [self getModuleData1];
+            }
             break;
         case 1:
             self.currentModule = 1;
             [self.featuredSubModule0 setHidden:YES];
             [self.featuredSubModule1 setHidden:NO];
             [self.featuredSubModule2 setHidden:YES];
-            [self getModuleData2];
+            if (self.featuredSubModule1.subviews.count <= 0) {
+                [self getModuleData2];
+            }
             break;
         case 2:
         {
@@ -145,6 +154,9 @@
             [self.featuredSubModule0 setHidden:YES];
             [self.featuredSubModule1 setHidden:YES];
             [self.featuredSubModule2 setHidden:NO];
+            if (self.featuredSubModule2.subviews.count <= 0) {
+                [self getModuleData3];
+            }
             break;
         }
         default:
@@ -195,7 +207,6 @@
 {
     if (self.currentModule == 0) {
         [self setModulePage0:dict];
-        
         WelcomeViewController *wvc = [[WelcomeViewController alloc] init];
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:wvc];
         nav.modalPresentationStyle = UIModalPresentationFormSheet;
@@ -203,10 +214,11 @@
         [wvc release];
         [nav release];
     }else if(self.currentModule == 1){
-        self.dataList_M1 =  [dict objectForKey:@"products"];
+        self.dataList_M1 = [dict objectForKey:@"lists"];
         [self setModulePage1];
     }else if(self.currentModule == 2){
-        
+        self.dataList_M2 = [dict objectForKey:@"lists"];
+        [self setModulePage2];
     }
 }
 #pragma mark   数据请求失败
@@ -312,16 +324,25 @@
     midView.frame = CGRectMake(20, 440, self.view.frame.size.width-40, 125);
     UIImageView *midImg1 = [[[UIImageView alloc] initWithImage:nil] autorelease];
     midImg1.layer.borderWidth = 3;
+    midImg1.userInteractionEnabled = YES;
     midImg1.layer.borderColor = [[UIColor colorWithWhite:1.0f alpha:1.0f] CGColor];
     UIImageView *midImg2 = [[[UIImageView alloc] initWithImage:nil] autorelease];
     midImg2.layer.borderWidth = 3;
+    midImg2.userInteractionEnabled = YES;
     midImg2.layer.borderColor = [[UIColor colorWithWhite:1.0f alpha:1.0f] CGColor];
     UIImageView *midImg3 = [[[UIImageView alloc] initWithImage:nil] autorelease];
     midImg3.layer.borderWidth = 3;
+    midImg3.userInteractionEnabled = YES;
     midImg3.layer.borderColor = [[UIColor colorWithWhite:1.0f alpha:1.0f] CGColor];
     midImg1.frame = CGRectMake(0, 0, 235, 125);
     midImg2.frame = CGRectMake(245, 0, 235, 125);
     midImg3.frame = CGRectMake(490, 0, 235, 125);
+    UITapGestureRecognizer *tapImg4 = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imgTypeClick:)] autorelease];
+    UITapGestureRecognizer *tapImg5 = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imgTypeClick:)] autorelease];
+    UITapGestureRecognizer *tapImg6 = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imgTypeClick:)] autorelease];
+    [midImg1 addGestureRecognizer:tapImg4];
+    [midImg2 addGestureRecognizer:tapImg5];
+    [midImg3 addGestureRecognizer:tapImg6];
     [midView addSubview:midImg1];
     [midView addSubview:midImg2];
     [midView addSubview:midImg3];
@@ -337,10 +358,9 @@
     NSArray *specials=[dictionary objectForKey:@"specials"];
     for (int i=0; i<specials.count; i++) {
         int id = [[[specials objectAtIndex:i] objectForKey:@"id"] intValue];
-        NSString *banner = [[specials objectAtIndex:i] objectForKey:@"banner"];
-        NSString *name = [[specials objectAtIndex:i] objectForKey:@"name"];
-        if (i<3) {
-            
+        NSString *banner = [[specials objectAtIndex:i] objectForKey:@"pad2"];
+//        NSString *name = [[specials objectAtIndex:i] objectForKey:@"name"];
+    
             //为头部大图片添加点击事件
             UIImage *topImgBanner = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:banner]]];
             UIImage *topImgBanner2;
@@ -354,23 +374,24 @@
                 topImg2.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:banner]]];
             }
             if(i == 2){
+                
                 topImgBanner2 = [topImgBanner imageByScalingToSize:CGSizeMake(235, 205)];
                 topImg3.tag = id;
                 topImg3.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:banner]]];
             }
-            
-            
-        }else{
             if (i == 3) {
+                topImgBanner2 = [topImgBanner imageByScalingToSize:CGSizeMake(235, 125)];
+                midImg1.tag = id;
                 midImg1.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:banner]]];
             }
             if (i == 4) {
+                midImg2.tag = id;
                 midImg2.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:banner]]];
             }
             if (i == 5) {
+                midImg3.tag = id;
                 midImg3.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:banner]]];
             }
-        }
     }
     
     //商品分类
@@ -381,7 +402,7 @@
         NSArray *products = [[lists objectAtIndex:j] objectForKey:@"products"];
         if(type == 0){
             UIView *listView = [[[UIView alloc] init] autorelease];
-            listView.frame =  CGRectMake(20, 575+j*260+j*10, self.view.frame.size.width-40, 260);
+            listView.frame =  CGRectMake(20, 575+(mainScrollView.subviews.count-2)*260+j*10, self.view.frame.size.width-40, 260);
             listView.layer.borderWidth = 3;
             listView.layer.borderColor = [[UIColor colorWithWhite:1.0f alpha:1.0f] CGColor];
             CGRect rect = CGRectMake(0, 0, listView.frame.size.width, listView.frame.size.height);
@@ -459,15 +480,24 @@
             fvcScrollView1.showsVerticalScrollIndicator = NO;
             [listView addSubview:fvcScrollView1];
             [mainScrollView addSubview:listView];
-            mainHeight += listView.frame.size.height+10;
+            mainHeight += listView.frame.size.height+j*10;
         }
     }
-    mainScrollView.contentSize = CGSizeMake(self.view.frame.size.width,mainHeight+15);
+    mainScrollView.contentSize = CGSizeMake(self.view.frame.size.width,mainHeight+30);
 }
 #pragma mark 绘制第二个栏目
 - (void) setModulePage1
 {
-    [self.featuredSubModule1 addSubview:self.tabView];
+    if (self.dataList_M1.count > 0) {
+        [self.featuredSubModule1 addSubview:self.tabView];
+    }else{
+        SHOWALERT(@"暂无数据");
+    }
+}
+#pragma mark 绘制第三个栏目
+- (void) setModulePage2
+{
+    
 }
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

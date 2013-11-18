@@ -66,7 +66,8 @@
     NSMutableDictionary *mdict = [NSMutableDictionary dictionary];
     [mdict setValue:@"full.product.get" forKey:@"method"];
     [mdict setValue:pid forKey:@"product_id"];
-    [_api sendRequest:mdict];
+//    [_api sendRequest:mdict];
+    [_api grabURLInBackground:[NSString stringWithFormat:@"method=full.product.get&product_id=%@",pid]];
 }
 //获取数据成功
 - (void)requestDidFinished:(NSDictionary *)dict

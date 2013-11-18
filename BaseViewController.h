@@ -10,7 +10,6 @@
 #import "NetAPI.h"
 #import "DownComicInfo.h"
 #import "GlobalMacros.h"
-
 extern Boolean isDownLoadStatus;
 @interface BaseViewController : UIViewController
 @property(nonatomic,assign) int curTimeVal;
