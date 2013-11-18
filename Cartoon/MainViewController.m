@@ -37,12 +37,12 @@
     fvc.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"推荐" image:nil tag:0] autorelease];
     fvc.tabBarItem.title = @"推荐";
     fvc.tabBarItem.badgeValue = @"3";
-    [fvc.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"bottom_icon__press_01.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"bottom_icon__press_01.png"]];
+    [fvc.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"bottom_icon_press_01.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"bottom_icon_01.png"]];
     UINavigationController *fvcNav = [[[UINavigationController alloc] initWithRootViewController:fvc] autorelease];
     
     SearchViewController *svc = [[[SearchViewController alloc] init] autorelease];
     svc.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"搜索" image:nil tag:1] autorelease];
-    [svc.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"bottom_icon_press_01-02.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"bottom_icon_01-02.png"]];
+    [svc.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"bottom_icon_press_06.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"bottom_icon_06.png"]];
     UINavigationController *svcNav = [[[UINavigationController alloc] initWithRootViewController:svc] autorelease];
     
     BuyViewController *bVc= [[[BuyViewController alloc] init] autorelease];

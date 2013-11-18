@@ -5,31 +5,19 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-<<<<<<< HEAD
-	<string>AC926DB8-C0A7-45DF-AC43-3DEC58778559</string>
-=======
-	<string>0B957A5D-C306-4D8F-9CA1-8B83E3BB18B3</string>
->>>>>>> 8231f451831a9eb694ecf29ae35d7c1c10ac4c0e
+	<string>79C5B849-E74B-4A9E-A695-10070AEC20FA</string>
 	<key>IDESourceControlProjectName</key>
 	<string>Cartoon</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-<<<<<<< HEAD
-		<key>ABEE74D0-4E13-4342-82D3-1700F5475666</key>
-=======
-		<key>4B212762-3C0B-45C5-A073-B57AA0A4268F</key>
->>>>>>> 8231f451831a9eb694ecf29ae35d7c1c10ac4c0e
+		<key>52FE54F8-8377-4532-A23E-69A23A3C6DEC</key>
 		<string>https://github.com/yueshenyuan/Cartoon.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Cartoon.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-<<<<<<< HEAD
-		<key>ABEE74D0-4E13-4342-82D3-1700F5475666</key>
-=======
-		<key>4B212762-3C0B-45C5-A073-B57AA0A4268F</key>
->>>>>>> 8231f451831a9eb694ecf29ae35d7c1c10ac4c0e
+		<key>52FE54F8-8377-4532-A23E-69A23A3C6DEC</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -37,22 +25,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-<<<<<<< HEAD
-	<string>ABEE74D0-4E13-4342-82D3-1700F5475666</string>
-=======
-	<string>4B212762-3C0B-45C5-A073-B57AA0A4268F</string>
->>>>>>> 8231f451831a9eb694ecf29ae35d7c1c10ac4c0e
+	<string>52FE54F8-8377-4532-A23E-69A23A3C6DEC</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-<<<<<<< HEAD
-			<string>ABEE74D0-4E13-4342-82D3-1700F5475666</string>
-=======
-			<string>4B212762-3C0B-45C5-A073-B57AA0A4268F</string>
->>>>>>> 8231f451831a9eb694ecf29ae35d7c1c10ac4c0e
+			<string>52FE54F8-8377-4532-A23E-69A23A3C6DEC</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Cartoon</string>
 		</dict>
