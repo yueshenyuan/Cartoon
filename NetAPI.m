@@ -32,7 +32,7 @@
         [self.request setPostValue:[cmtData objectForKey:key] forKey:key];
        dataStr = [dataStr stringByAppendingString:[NSString stringWithFormat:@"%@=%@&",key,[cmtData objectForKey:key]]];
     }
-    NSLog(@"请求地址 =======》 %@",dataStr);
+//    NSLog(@"请求地址 =======》 %@",dataStr);
     self.request.delegate = self;
     [self.request startAsynchronous];
     self.request.didFinishSelector = @selector(requestFinished1:);
@@ -44,7 +44,7 @@
 {
     LOADINGDISMISS;
     NSString *respStr =[self.request responseString];
-    NSLog(@"请求结果 ======》%@",respStr);
+//    NSLog(@"请求结果 ======》%@",respStr);
     NSDictionary *dict = [respStr objectFromJSONString];
     NSDictionary *exception = [dict objectForKey:@"exception"];
     if (exception) {

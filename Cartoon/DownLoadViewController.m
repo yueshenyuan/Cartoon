@@ -151,7 +151,7 @@
     [itemView addSubview:deleBtn];
     [itemView addSubview:stopDown];
     [self.view addSubview:itemView];
-    
+    NSLog(@"--------------3----------------");
     if (!isDownLoadStatus) {
         isDownLoadStatus = YES;
         self.alreadyDown = 0.00;
@@ -275,7 +275,6 @@ static int conlen = 0;
     int pid = request.tag;
     self.alreadyDown += request.contentLength/1024.0/1024.0;
     conlen += request.contentLength;
-    NSLog(@"contentLength = %d ",conlen);
     //队列文件总大小
     float totalSize = [self.downBase getProductDownTotalSize:pid];
     if (totalSize < 0.0) {
