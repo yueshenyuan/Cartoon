@@ -10,8 +10,8 @@
 #import "PublishersViewController.h"
 #import "FeaturedViewController.h"
 #import "DownLoadViewController.h"
-#import "DetailViewController.h"
-#import "FreeViewController.h"
+#import "BuyViewController.h"
+#import "SearchViewController.h"
 @interface MainViewController ()
 
 @end
@@ -34,29 +34,30 @@
     UITabBarController *tabBarController = [[[UITabBarController alloc] init] autorelease];
     
     FeaturedViewController *fvc = [[[FeaturedViewController alloc] init] autorelease];
-    fvc.tabBarItem = [[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemFeatured tag:0] autorelease];
+    fvc.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"推荐" image:nil tag:0] autorelease];
     fvc.tabBarItem.title = @"推荐";
     fvc.tabBarItem.badgeValue = @"3";
+    [fvc.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"bottom_icon__press_01.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"bottom_icon__press_01.png"]];
     UINavigationController *fvcNav = [[[UINavigationController alloc] initWithRootViewController:fvc] autorelease];
     
-    PublishersViewController *pvc = [[[PublishersViewController alloc] init] autorelease];
-    pvc.title = @"搜索";
-    pvc.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"搜索" image:nil tag:1] autorelease];
-    [pvc.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"vimg.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"loading_bg1.png"]];
-    UINavigationController *svcNav = [[[UINavigationController alloc] initWithRootViewController:pvc] autorelease];
+    SearchViewController *svc = [[[SearchViewController alloc] init] autorelease];
+    svc.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"搜索" image:nil tag:1] autorelease];
+    [svc.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"bottom_icon_press_01-02.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"bottom_icon_01-02.png"]];
+    UINavigationController *svcNav = [[[UINavigationController alloc] initWithRootViewController:svc] autorelease];
     
-    FreeViewController *freeVc= [[[FreeViewController alloc] init] autorelease];
-    freeVc.title = @"已购买";
-    freeVc.tabBarItem = [[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMostRecent tag:2] autorelease];
-    UINavigationController *freeNav = [[UINavigationController alloc] initWithRootViewController:freeVc];
+    BuyViewController *bVc= [[[BuyViewController alloc] init] autorelease];
+    bVc.title = @"已购买";
+    bVc.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"已购买" image:nil tag:2] autorelease];
+    [bVc.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"bottom_icon_press_01-04.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"bottom_icon_01-04.png"]];
+    UINavigationController *freeNav = [[UINavigationController alloc] initWithRootViewController:bVc];
     
     DownLoadViewController *dvc = [[[DownLoadViewController alloc] init] autorelease];
     dvc.title = @"下载管理";
-    dvc.tabBarItem = [[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemDownloads tag:3] autorelease];
+    dvc.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"下载管理" image:nil tag:3] autorelease];
+    [dvc.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"bottom_icon_press_01-05.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"bottom_icon_01-05.png"]];
     UINavigationController *dvcNav = [[[UINavigationController alloc] initWithRootViewController:dvc] autorelease];
 
-    DetailViewController *detailV = [[[DetailViewController alloc] init] autorelease];
-    detailV.delete = dvc;
+    
     tabBarController.viewControllers = [[[NSArray alloc] initWithObjects:fvcNav,svcNav,freeNav,dvcNav, nil] autorelease];
     [self presentModalViewController:tabBarController animated:YES];
     

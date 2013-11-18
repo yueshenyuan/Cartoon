@@ -28,11 +28,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.navigationItem.title = @"欢迎";
+    [self setTitle:@"欢迎您"];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(closeWindow)];
     self.navigationItem.rightBarButtonItem = rightItem;
 
     UIButton *btn = (UIButton *)[self.view viewWithTag:100];
-    [btn addTarget:self action:@selector(openRecoveryPage) forControlEvents:UIControlEventTouchUpInside];
+    [btn addTarget:self action:@selector(closeWindow) forControlEvents:UIControlEventTouchUpInside];
 }
 - (void) closeWindow
 {

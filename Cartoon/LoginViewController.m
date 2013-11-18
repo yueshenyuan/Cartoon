@@ -26,6 +26,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationItem.title = @"登录";
     // Do any additional setup after loading the view from its nib.
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"注册" style:UIBarButtonItemStylePlain target:self action:@selector(registMethod)];
     self.navigationItem.rightBarButtonItem = rightItem;

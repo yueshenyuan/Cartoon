@@ -66,11 +66,17 @@
     NSMutableDictionary *mdict = [NSMutableDictionary dictionary];
     [mdict setValue:@"full.product.get" forKey:@"method"];
     [mdict setValue:pid forKey:@"product_id"];
+//    NSString *s = [NSString stringWithFormat:@"%@",pid];
+//    [_api grabURLInBackground:s];
     [_api sendRequest:mdict];
 }
 //获取数据成功
 - (void)requestDidFinished:(NSDictionary *)dict
 {
+    if (dict.count == 0) {
+        SHOWALERT(@"未查询到漫画详细信息");
+        return;
+    }
     if ([self.netWordType isEqualToString:@"detail"]) {
         self.imgArr = [dict objectForKey:@"all_products"];
         

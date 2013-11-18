@@ -7,7 +7,9 @@
 //
 
 #import "BaseViewController.h"
-
+#import "LoginViewController.h"
+#import "BookshelfIndexViewController.h"
+#import "ShowDetailViewController.h"
 @interface BaseViewController ()
 
 @end
@@ -30,7 +32,9 @@ Boolean isDownLoadStatus = NO;
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
-    self.navigationItem.title = @"tesltkj";
+//    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:12.0 green:95.0 blue:250.0 alpha:1.0];
+    UIBarButtonItem *rightItem = [[[UIBarButtonItem alloc] initWithTitle:@"我的书架" style:UIBarButtonSystemItemAction target:self action:@selector(myComics)] autorelease];
+    self.navigationItem.rightBarButtonItem = rightItem;
 }
 + (BaseViewController *) getGlobalData
 {
@@ -105,7 +109,48 @@ Boolean isDownLoadStatus = NO;
     [arr writeToFile:path atomically:YES];
 }
 
-
+#pragma mark 我的书架
+- (void)myComics
+{
+    NSArray *navBarViews = self.navigationController.navigationBar.subviews;
+    for (id viewObj in navBarViews) {
+        if ([viewObj isKindOfClass:[UISegmentedControl class]]) {
+            [viewObj setHidden:YES];
+        }
+    }
+    BookshelfIndexViewController *bsiVC = [[[BookshelfIndexViewController alloc] init] autorelease];
+    [self.navigationController pushViewController:bsiVC animated:YES];
+}
+#pragma mark  浏览漫画
+- (void) showDetailComic:(id)clickPid{
+    
+    int tapPid = 0;
+    UIButton *btn = (UIButton *)clickPid;
+    tapPid = btn.superview.tag;
+    
+    ShowDetailViewController *sdvc = [[[ShowDetailViewController alloc] init] autorelease];
+    NSMutableArray *imgsArr = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *currentDownList = [BaseViewController getSaveLocalDownList];
+    for (int i=0; i<currentDownList.count; i++) {
+        NSDictionary *browseComicDict = [currentDownList objectAtIndex:i];
+        int pid = [[browseComicDict objectForKey:@"pid"] intValue];
+        
+        if (pid == tapPid) {
+            NSArray *pages = [browseComicDict objectForKey:@"pages"];
+            for (id page in pages) {
+                NSString *img = [page objectForKey:@"img"];
+                NSString *str_intercepted = [img substringFromIndex:46];
+//                NSString *str_character = @"/";
+//                NSRange range = [str_intercepted rangeOfString:str_character];
+//                NSString *str_complete = [str_intercepted substringToIndex:range.location];
+                NSString *imgPath = [NSString stringWithFormat:@"%d/%@",pid,str_intercepted.lastPathComponent];
+                [imgsArr addObject:imgPath];
+            }
+        }
+    }
+    sdvc.imgsArr = imgsArr;
+    [self.navigationController pushViewController:sdvc animated:YES];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

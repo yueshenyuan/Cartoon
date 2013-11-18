@@ -23,6 +23,7 @@
 @property(nonatomic,retain) UITableView *tabView;
 
 @property(nonatomic,retain) NSArray *dataList_M1;
+@property(nonatomic,retain) NSArray *dataList_M2;
 @property(nonatomic,retain) IBOutlet UIView *leftView_M1;
 @property(nonatomic,retain) IBOutlet UIImageView *leftImgView_M1;
 @property(nonatomic,retain) IBOutlet UILabel *leftLab1_M1;

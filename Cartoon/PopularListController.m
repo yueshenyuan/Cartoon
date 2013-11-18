@@ -155,5 +155,6 @@
 - (void)dealloc
 {
     [_api release];
+    [super dealloc];
 }
 @end
