@@ -35,7 +35,6 @@ Boolean isDownLoadStatus = NO;
 //    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:12.0 green:95.0 blue:250.0 alpha:1.0];
     UIBarButtonItem *rightItem = [[[UIBarButtonItem alloc] initWithTitle:@"我的书架" style:UIBarButtonSystemItemAction target:self action:@selector(myComics)] autorelease];
     self.navigationItem.rightBarButtonItem = rightItem;
-    
     UIBarButtonItem *leftItem = [[[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarStyleBlack target:self action:@selector(backPrevPage)] autorelease];
     self.navigationItem.leftBarButtonItem = leftItem;
 }

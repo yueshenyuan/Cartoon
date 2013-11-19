@@ -20,6 +20,5 @@
 @property(nonatomic,assign) id<requestDelete> delegate;
 @property(nonatomic,retain) ASIFormDataRequest *request;
 - (void)sendRequest:(NSMutableDictionary *)cmtData;
-
 -(void)grabURLInBackground:(NSString *)dict;
 @end
