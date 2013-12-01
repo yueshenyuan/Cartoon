@@ -99,7 +99,6 @@
 		58965337171E545A001EADF5 /* PopularListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58965336171E545A001EADF5 /* PopularListController.m */; };
 		58965339171E7205001EADF5 /* FeatureCell_M1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58965338171E7205001EADF5 /* FeatureCell_M1.xib */; };
 		5896533C171E778A001EADF5 /* myCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5896533B171E778A001EADF5 /* myCell.m */; };
-		589A051E1750A29E001FBDF0 /* vimg.png in Resources */ = {isa = PBXBuildFile; fileRef = 589A051D1750A29E001FBDF0 /* vimg.png */; };
 		58A0D7D7176DA0E300BA3638 /* NetAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 58A0D7D6176DA0E300BA3638 /* NetAPI.m */; };
 		58A26A511695717C00F76424 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 58A26A501695717C00F76424 /* JSONKit.m */; };
 		58A26A5516958FE300F76424 /* DetailClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 58A26A5416958FE300F76424 /* DetailClass.m */; };
@@ -252,7 +251,6 @@
 		58965338171E7205001EADF5 /* FeatureCell_M1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeatureCell_M1.xib; sourceTree = "<group>"; };
 		5896533A171E778A001EADF5 /* myCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myCell.h; sourceTree = "<group>"; };
 		5896533B171E778A001EADF5 /* myCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myCell.m; sourceTree = "<group>"; };
-		589A051D1750A29E001FBDF0 /* vimg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vimg.png; sourceTree = "<group>"; };
 		58A0D7D5176DA0E300BA3638 /* NetAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetAPI.h; sourceTree = "<group>"; };
 		58A0D7D6176DA0E300BA3638 /* NetAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetAPI.m; sourceTree = "<group>"; };
 		58A26A4F1695717C00F76424 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
@@ -406,7 +404,6 @@
 				586E9CE4179ACAF400EF3BD0 /* bottom_icon_press_01-03.png */,
 				586E9CE5179ACAF400EF3BD0 /* bottom_icon_press_01-04.png */,
 				586E9CE6179ACAF400EF3BD0 /* bottom_icon_press_01-05.png */,
-				589A051D1750A29E001FBDF0 /* vimg.png */,
 				5851A188170C6B3700A0A932 /* loading_bg1.png */,
 				5851A189170C6B3700A0A932 /* loading_bg1@2x.png */,
 				5851A18A170C6B3700A0A932 /* loadingwhite.png */,
@@ -809,7 +806,6 @@
 				5892A66217355329006B3D33 /* DetailViewController.xib in Resources */,
 				585BA407183A6089006AA1AF /* bottom_icon_press_01.png in Resources */,
 				585BA40A183A6089006AA1AF /* bottom_icon_press_06@2x.png in Resources */,
-				589A051E1750A29E001FBDF0 /* vimg.png in Resources */,
 				58125797177BEC0D007623F7 /* BaseViewController.xib in Resources */,
 				585BA402183A6089006AA1AF /* bottom_icon_06@2x.png in Resources */,
 				580F5AB01792DFE700724F00 /* WelcomeViewController.xib in Resources */,
