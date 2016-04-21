@@ -16,7 +16,7 @@ static GlobalData *sharedObj = nil; //第一步：静态实例，并初始化。
 static NSMutableArray *CurrentDownList;
 static NSString *isDownLoad;
 Boolean isDownLoadStatus = NO;
-@implementation GlobalData
+@implementation GlobalDataFDSFFDSF
 @synthesize curTimeVal = _curTimeVal;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
